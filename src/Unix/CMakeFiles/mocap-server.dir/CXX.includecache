@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-server.cpp
+Client.h
+/Users/mlantin/Documents/Research/VR/mocap-server/src/Client.h
+iostream
+-
+fstream
+-
+cassert
+-
+ctime
+-
+conio.h
+-
+cstdio
+-
+windows.h
+-
+time.h
+-
+
+/Users/mlantin/Documents/Vicon_DataStream_SDK_1.3.0.57137h_MAC/Client.h
+string
+-
+

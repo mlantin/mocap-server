@@ -161,5 +161,101 @@ int main( int argc, char* argv[] )
     HostName = argv[1];
   }
 
+  std::string LogFile = "";
+  std::string MulticastAddress = "244.0.0.0:44801";
+  bool ConnectToMultiCast = false;
+  bool EnableMultiCast = false;
+  for(int a=2; a < argc; ++a)
+  {
+    std::string arg = argv[a];
+    if(arg == "--help")
+    {
+      std::cout << argv[0] << " <HostName>: allowed options include:\n  --log_file <LogFile> --enable_multicast <MulticastAddress:Port> --connect_to_multicast <MulticastAddress:Port> --help" << std::endl;
+      return 0;
+    }
+    else if (arg=="--log_file")
+    {
+      if(a < argc)
+      {
+        LogFile = argv[a+1];
+        std::cout << "Using log file <"<< LogFile << "> ..." << std::endl;
+        ++a;
+      }
+    }
+    else if (arg=="--enable_multicast")
+    {
+      EnableMultiCast = true;
+      if(a < argc)
+      {
+        MulticastAddress = argv[a+1];
+        std::cout << "Enabling multicast address <"<< MulticastAddress << "> ..." << std::endl;
+        ++a;
+      }
+    }
+    else if (arg=="--connect_to_multicast")
+    {
+      ConnectToMultiCast = true;
+      if(a < argc)
+      {
+        MulticastAddress = argv[a+1];
+        std::cout << "connecting to multicast address <"<< MulticastAddress << "> ..." << std::endl;
+        ++a;
+      }
+    }
+    else
+    {
+      std::cout << "Failed to understand argument <" << argv[a] << ">...exiting" << std::endl;
+      return 1;
+    }
+  }
+
+  std::ofstream ofs;
+  if(!LogFile.empty())
+  {
+    ofs.open(LogFile.c_str());
+    if(!ofs.is_open())
+    {
+      std::cout << "Could not open log file <" << LogFile << ">...exiting" << std::endl;
+      return 1;
+    }
+  }
+
   Client MyClient;
+
+  // try to connect
+  for(int i=0; i != 3; ++i) // repeat to check disconnecting doesn't wreck next connect
+  {
+    // Connect to a server
+    std::cout << "Connecting to " << HostName << " ..." << std::flush;
+    while( !MyClient.IsConnected().Connected )
+    {
+      // Direct connection
+
+      bool ok = false;
+      if(ConnectToMultiCast)
+      {
+        // Multicast connection
+        ok = ( MyClient.ConnectToMulticast( HostName, MulticastAddress ).Result == Result::Success );
+
+      }
+      else
+      {
+        ok =( MyClient.Connect( HostName ).Result == Result::Success );
+      }
+      if(!ok)
+      {
+        std::cout << "Warning - connect failed..." << std::endl;
+      }
+
+
+      std::cout << ".";
+  #ifdef WIN32
+      Sleep( 200 );
+  #else
+      sleep(1);
+  #endif
+    }
+    std::cout << std::endl;
+  }
+
 }

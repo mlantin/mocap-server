@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/mlantin/Documents/Research/VR/mocap-server/src -I/Users/mlantin/Documents/Vicon_DataStream_SDK_1.3.0.57137h_MAC 
+CXX_INCLUDES = -I/Users/mlantin/Documents/Research/VR/mocap-server/src -I/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC 
 

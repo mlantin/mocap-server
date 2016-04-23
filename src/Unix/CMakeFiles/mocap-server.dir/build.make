@@ -90,7 +90,7 @@ mocap__server_EXTERNAL_OBJECTS =
 
 ../bin/mocap-server: CMakeFiles/mocap-server.dir/mocap-server.cpp.o
 ../bin/mocap-server: CMakeFiles/mocap-server.dir/build.make
-../bin/mocap-server: /Users/mlantin/Documents/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
+../bin/mocap-server: ../../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
 ../bin/mocap-server: CMakeFiles/mocap-server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/src/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/mocap-server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mocap-server.dir/link.txt --verbose=$(VERBOSE)

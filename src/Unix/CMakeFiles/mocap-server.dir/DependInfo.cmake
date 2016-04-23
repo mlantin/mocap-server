@@ -11,7 +11,7 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../"
-  "/Users/mlantin/Documents/Vicon_DataStream_SDK_1.3.0.57137h_MAC"
+  "../../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC"
   )
 
 # Targets to which this target links.

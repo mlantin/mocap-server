@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mocap-server.dir/mocap-server.cpp.o"
-  "../bin/mocap-server.pdb"
-  "../bin/mocap-server"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server.pdb"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server"
 )
 
 # Per-language clean rules from dependency scanning.

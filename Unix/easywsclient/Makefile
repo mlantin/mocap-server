@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /Users/mlantin/Documents/Research/VR/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mlantin/Documents/Research/VR/mocap-server/src/Unix
+CMAKE_BINARY_DIR = /Users/mlantin/Documents/Research/VR/mocap-server/Unix
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/src/Unix/CMakeFiles /Users/mlantin/Documents/Research/VR/mocap-server/src/Unix/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/src/Unix/CMakeFiles 0
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles /Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/CMakeFiles/progress.marks
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,58 +97,60 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named mocap-server
+# Convenience name for target.
+easywsclient/CMakeFiles/easywsclient.dir/rule:
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/CMakeFiles/easywsclient.dir/rule
+.PHONY : easywsclient/CMakeFiles/easywsclient.dir/rule
 
-# Build rule for target.
-mocap-server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 mocap-server
-.PHONY : mocap-server
+# Convenience name for target.
+easywsclient: easywsclient/CMakeFiles/easywsclient.dir/rule
+
+.PHONY : easywsclient
 
 # fast build rule for target.
-mocap-server/fast:
-	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/build
-.PHONY : mocap-server/fast
+easywsclient/fast:
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/build
+.PHONY : easywsclient/fast
 
-mocap-server.o: mocap-server.cpp.o
+easywsclient.o: easywsclient.cpp.o
 
-.PHONY : mocap-server.o
+.PHONY : easywsclient.o
 
 # target to build an object file
-mocap-server.cpp.o:
-	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/mocap-server.cpp.o
-.PHONY : mocap-server.cpp.o
+easywsclient.cpp.o:
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o
+.PHONY : easywsclient.cpp.o
 
-mocap-server.i: mocap-server.cpp.i
+easywsclient.i: easywsclient.cpp.i
 
-.PHONY : mocap-server.i
+.PHONY : easywsclient.i
 
 # target to preprocess a source file
-mocap-server.cpp.i:
-	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/mocap-server.cpp.i
-.PHONY : mocap-server.cpp.i
+easywsclient.cpp.i:
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.i
+.PHONY : easywsclient.cpp.i
 
-mocap-server.s: mocap-server.cpp.s
+easywsclient.s: easywsclient.cpp.s
 
-.PHONY : mocap-server.s
+.PHONY : easywsclient.s
 
 # target to generate assembly for a file
-mocap-server.cpp.s:
-	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/mocap-server.cpp.s
-.PHONY : mocap-server.cpp.s
+easywsclient.cpp.s:
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.s
+.PHONY : easywsclient.cpp.s
 
 # Help Target
 help:
@@ -158,10 +160,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... mocap-server"
-	@echo "... mocap-server.o"
-	@echo "... mocap-server.i"
-	@echo "... mocap-server.s"
+	@echo "... easywsclient"
+	@echo "... easywsclient.o"
+	@echo "... easywsclient.i"
+	@echo "... easywsclient.s"
 .PHONY : help
 
 
@@ -173,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/mlantin/Documents/Research/VR/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

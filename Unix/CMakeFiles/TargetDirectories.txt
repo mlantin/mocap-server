@@ -1,0 +1,2 @@
+/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles/mocap-server.dir
+/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir

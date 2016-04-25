@@ -7,10 +7,11 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "../CMakeLists.txt"
   "CMakeFiles/3.4.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.4.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.4.1/CMakeSystem.cmake"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/CMakeLists.txt"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient/CMakeLists.txt"
   "/opt/local/share/cmake-3.4/Modules/CMakeCInformation.cmake"
   "/opt/local/share/cmake-3.4/Modules/CMakeCXXInformation.cmake"
   "/opt/local/share/cmake-3.4/Modules/CMakeCommonLanguageInclude.cmake"
@@ -40,9 +41,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "easywsclient/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/mocap-server.dir/DependInfo.cmake"
+  "easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake"
   )

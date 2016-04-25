@@ -487,7 +487,7 @@ int main( int argc, char* argv[] )
                                         << Adapt( _Output_GetMarkerGlobalTranslation.Occluded ) << std::endl;
         }
       }
-
+    }
       
       
     if( EnableMultiCast )

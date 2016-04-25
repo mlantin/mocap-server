@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/Client.h
+/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/Client.h
 string
 -
 

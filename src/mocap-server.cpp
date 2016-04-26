@@ -1,15 +1,23 @@
 #include "Client.h"
+#include "easywsclient.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <cassert>
 #include <ctime>
+#include <stdio.h>
+#include <string>
 
 #ifdef WIN32
   #include <conio.h>   // For _kbhit()
   #include <cstdio>   // For getchar()
   #include <windows.h> // For Sleep()
 #endif // WIN32
+
+#ifdef _WIN32
+#pragma comment( lib, "ws2_32" )
+#include <WinSock2.h>
+#endif
 
 #include <time.h>
 
@@ -151,6 +159,15 @@ namespace
 #endif
 }
 
+using easywsclient::WebSocket;
+static WebSocket::pointer ws = NULL;
+
+void handle_message(const std::string & message)
+{
+    printf(">>> %s\n", message.c_str());
+    if (message == "world") { ws->close(); }
+}
+
 int main( int argc, char* argv[] )
 {
   // Program options
@@ -247,7 +264,6 @@ int main( int argc, char* argv[] )
         std::cout << "Warning - connect failed..." << std::endl;
       }
 
-
       std::cout << ".";
   #ifdef WIN32
       Sleep( 200 );
@@ -255,6 +271,23 @@ int main( int argc, char* argv[] )
       sleep(1);
   #endif
     }
+
+    // open the websocket server connection
+    #ifdef _WIN32
+    INT rc;
+    WSADATA wsaData;
+
+    rc = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (rc) {
+      printf("WSAStartup Failed.\n");
+      return 1;
+    }
+    #endif
+
+    ws = WebSocket::from_url("ws://192.168.11.34:4567/socket.io/?EIO=4&transport=websocket");
+    assert(ws);
+    ws->send("mocap-connected");
+
     std::cout << std::endl;
 
     // Enable some different data types
@@ -507,5 +540,9 @@ int main( int argc, char* argv[] )
     double secs = (double) (dt)/(double)CLOCKS_PER_SEC;
     std::cout << " Disconnect time = " << secs << " secs" << std::endl;
 
+    delete ws;
+    #ifdef _WIN32
+    WSACleanup();
+    #endif
   }
 }

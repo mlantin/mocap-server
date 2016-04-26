@@ -10,9 +10,17 @@
 string
 -
 
+/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient/easywsclient.hpp
+string
+-
+vector
+-
+
 /Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-server.cpp
 Client.h
 /Users/mlantin/Documents/Research/VR/mocap-server/src/Client.h
+easywsclient.hpp
+/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient.hpp
 iostream
 -
 fstream
@@ -21,11 +29,17 @@ cassert
 -
 ctime
 -
+stdio.h
+-
+string
+-
 conio.h
 -
 cstdio
 -
 windows.h
+-
+WinSock2.h
 -
 time.h
 -

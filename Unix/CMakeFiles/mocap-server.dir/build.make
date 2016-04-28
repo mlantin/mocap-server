@@ -91,7 +91,9 @@ mocap__server_EXTERNAL_OBJECTS =
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/mocap-server.cpp.o
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/build.make
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a
+/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libboost_combined.a
+/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient.a
+/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient_tls.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mocap-server.dir/link.txt --verbose=$(VERBOSE)

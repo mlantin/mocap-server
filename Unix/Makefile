@@ -123,19 +123,6 @@ mocap-server/fast:
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/build
 .PHONY : mocap-server/fast
 
-#=============================================================================
-# Target rules for targets named easywsclient
-
-# Build rule for target.
-easywsclient: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 easywsclient
-.PHONY : easywsclient
-
-# fast build rule for target.
-easywsclient/fast:
-	$(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/build
-.PHONY : easywsclient/fast
-
 mocap-server.o: mocap-server.cpp.o
 
 .PHONY : mocap-server.o
@@ -172,7 +159,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mocap-server"
-	@echo "... easywsclient"
 	@echo "... mocap-server.o"
 	@echo "... mocap-server.i"
 	@echo "... mocap-server.s"

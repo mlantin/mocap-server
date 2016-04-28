@@ -11,13 +11,11 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/Users/mlantin/Documents/Research/VR/mocap-server/src"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

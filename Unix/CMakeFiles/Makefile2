@@ -63,10 +63,10 @@ CMAKE_BINARY_DIR = /Users/mlantin/Documents/Research/VR/mocap-server/Unix
 # Target rules for target CMakeFiles/mocap-server.dir
 
 # All Build rule for target.
-CMakeFiles/mocap-server.dir/all: easywsclient/CMakeFiles/easywsclient.dir/all
+CMakeFiles/mocap-server.dir/all:
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/depend
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=3,4 "Built target mocap-server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=1,2 "Built target mocap-server"
 .PHONY : CMakeFiles/mocap-server.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/mocap-server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mocap-server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/mocap-server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
 .PHONY : CMakeFiles/mocap-server.dir/rule
@@ -93,61 +93,6 @@ CMakeFiles/mocap-server.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/mocap-server.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory easywsclient
-
-# Convenience name for "all" pass in the directory.
-easywsclient/all: easywsclient/CMakeFiles/easywsclient.dir/all
-
-.PHONY : easywsclient/all
-
-# Convenience name for "clean" pass in the directory.
-easywsclient/clean: easywsclient/CMakeFiles/easywsclient.dir/clean
-
-.PHONY : easywsclient/clean
-
-# Convenience name for "preinstall" pass in the directory.
-easywsclient/preinstall:
-
-.PHONY : easywsclient/preinstall
-
-#=============================================================================
-# Target rules for target easywsclient/CMakeFiles/easywsclient.dir
-
-# All Build rule for target.
-easywsclient/CMakeFiles/easywsclient.dir/all:
-	$(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/depend
-	$(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=1,2 "Built target easywsclient"
-.PHONY : easywsclient/CMakeFiles/easywsclient.dir/all
-
-# Include target in all.
-all: easywsclient/CMakeFiles/easywsclient.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-easywsclient/CMakeFiles/easywsclient.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 easywsclient/CMakeFiles/easywsclient.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
-.PHONY : easywsclient/CMakeFiles/easywsclient.dir/rule
-
-# Convenience name for target.
-easywsclient: easywsclient/CMakeFiles/easywsclient.dir/rule
-
-.PHONY : easywsclient
-
-# clean rule for target.
-easywsclient/CMakeFiles/easywsclient.dir/clean:
-	$(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/clean
-.PHONY : easywsclient/CMakeFiles/easywsclient.dir/clean
-
-# clean rule for target.
-clean: easywsclient/CMakeFiles/easywsclient.dir/clean
 
 .PHONY : clean
 

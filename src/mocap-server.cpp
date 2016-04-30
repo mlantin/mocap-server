@@ -245,8 +245,7 @@ int main( int argc, char* argv[] )
     wsvr.connect("ws://192.168.11.67:4567/socket.io/?EIO=4&transport=websocket");
 
     // set up the data structure for sending data to wsvr
-    sio::message::ptr msg_sp = sio::array_message::create();
-    sio::array_message* msg = (sio::array_message*) msg_sp.get();
+    sio::message::ptr msg = sio::array_message::create();
 
     std::cout << std::endl;
 
@@ -425,16 +424,16 @@ int main( int argc, char* argv[] )
           
           std::vector<sio::message::ptr> vec = msg->get_vector();
           vec.clear();
-          msg->push(SubjectName);
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
-          msg->push(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
+          vec.push_back(sio::string_message::create(SubjectName));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
+          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
 
-          wsvr.socket()->emit("mocap", msg_sp);
+          wsvr.socket()->emit("obj", msg);
         //}
 
         // Count the number of markers

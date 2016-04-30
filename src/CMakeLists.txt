@@ -21,3 +21,4 @@ set_property(TARGET sioclient_tls PROPERTY IMPORTED_LOCATION ${EXT_LIB}/sioclien
 
 add_executable(mocap-server mocap-server.cpp)
 target_link_libraries(mocap-server vicon boost_combined sioclient sioclient_tls)
+target_compile_features(mocap-server PUBLIC cxx_range_for)

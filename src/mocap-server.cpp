@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cassert>
 #include <ctime>
 #include <stdio.h>
@@ -162,12 +163,6 @@ namespace
 using easywsclient::WebSocket;
 static WebSocket::pointer ws = NULL;
 
-void handle_message(const std::string & message)
-{
-    printf(">>> %s\n", message.c_str());
-    if (message == "world") { ws->close(); }
-}
-
 int main( int argc, char* argv[] )
 {
   // Program options
@@ -284,9 +279,11 @@ int main( int argc, char* argv[] )
     }
     #endif
 
-    ws = WebSocket::from_url("ws://192.168.11.34:4567/socket.io/?EIO=4&transport=websocket");
+    ws = WebSocket::from_url("ws://192.168.11.67:4567/socket.io/?EIO=4&transport=websocket");
     assert(ws);
-    ws->send("mocap-connected");
+
+    std::stringstream objmsg;
+    objmsg.precision(7);
 
     std::cout << std::endl;
 
@@ -297,9 +294,9 @@ int main( int argc, char* argv[] )
     MyClient.EnableDeviceData();
 
     std::cout << "Segment Data Enabled: "          << Adapt( MyClient.IsSegmentDataEnabled().Enabled )         << std::endl;
-    std::cout << "Marker Data Enabled: "           << Adapt( MyClient.IsMarkerDataEnabled().Enabled )          << std::endl;
-    std::cout << "Unlabeled Marker Data Enabled: " << Adapt( MyClient.IsUnlabeledMarkerDataEnabled().Enabled ) << std::endl;
-    std::cout << "Device Data Enabled: "           << Adapt( MyClient.IsDeviceDataEnabled().Enabled )          << std::endl;
+    // std::cout << "Marker Data Enabled: "           << Adapt( MyClient.IsMarkerDataEnabled().Enabled )          << std::endl;
+    // std::cout << "Unlabeled Marker Data Enabled: " << Adapt( MyClient.IsUnlabeledMarkerDataEnabled().Enabled ) << std::endl;
+    // std::cout << "Device Data Enabled: "           << Adapt( MyClient.IsDeviceDataEnabled().Enabled )          << std::endl;
 
     // Set the streaming mode
     //MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPull );
@@ -420,48 +417,34 @@ int main( int argc, char* argv[] )
         std::string RootSegment = MyClient.GetSubjectRootSegmentName( SubjectName ).SegmentName;
         output_stream << "    Root Segment: " << RootSegment << std::endl;
 
-        // Count the number of segments
-        unsigned int SegmentCount = MyClient.GetSegmentCount( SubjectName ).SegmentCount;
-        output_stream << "    Segments (" << SegmentCount << "):" << std::endl;
-        for( unsigned int SegmentIndex = 0 ; SegmentIndex < SegmentCount ; ++SegmentIndex )
-        {
-          output_stream << "      Segment #" << SegmentIndex << std::endl;
+        // // Count the number of segments
+        // unsigned int SegmentCount = MyClient.GetSegmentCount( SubjectName ).SegmentCount;
+        // output_stream << "    Segments (" << SegmentCount << "):" << std::endl;
+        // for( unsigned int SegmentIndex = 0 ; SegmentIndex < SegmentCount ; ++SegmentIndex )
+        // {
+        //   output_stream << "      Segment #" << SegmentIndex << std::endl;
 
-          // Get the segment name
-          std::string SegmentName = MyClient.GetSegmentName( SubjectName, SegmentIndex ).SegmentName;
-          output_stream << "        Name: " << SegmentName << std::endl;
+        //   // Get the segment name
+        //   std::string SegmentName = MyClient.GetSegmentName( SubjectName, SegmentIndex ).SegmentName;
+        //   output_stream << "        Name: " << SegmentName << std::endl;
 
-          // Get the segment parent
-          std::string SegmentParentName = MyClient.GetSegmentParentName( SubjectName, SegmentName ).SegmentName;
-          output_stream << "        Parent: " << SegmentParentName << std::endl;
+        //   // Get the segment parent
+        //   std::string SegmentParentName = MyClient.GetSegmentParentName( SubjectName, SegmentName ).SegmentName;
+        //   output_stream << "        Parent: " << SegmentParentName << std::endl;
 
-          // Get the segment's children
-          unsigned int ChildCount = MyClient.GetSegmentChildCount( SubjectName, SegmentName ).SegmentCount;
-          output_stream << "     Children (" << ChildCount << "):" << std::endl;
-          for( unsigned int ChildIndex = 0 ; ChildIndex < ChildCount ; ++ChildIndex )
-          {
-            std::string ChildName = MyClient.GetSegmentChildName( SubjectName, SegmentName, ChildIndex ).SegmentName;
-            output_stream << "       " << ChildName << std::endl;
-          }
+        //   // Get the segment's children
+        //   unsigned int ChildCount = MyClient.GetSegmentChildCount( SubjectName, SegmentName ).SegmentCount;
+        //   output_stream << "     Children (" << ChildCount << "):" << std::endl;
+        //   for( unsigned int ChildIndex = 0 ; ChildIndex < ChildCount ; ++ChildIndex )
+        //   {
+        //     std::string ChildName = MyClient.GetSegmentChildName( SubjectName, SegmentName, ChildIndex ).SegmentName;
+        //     output_stream << "       " << ChildName << std::endl;
+        //   }
 
-          // Get the static segment translation
-          Output_GetSegmentStaticTranslation _Output_GetSegmentStaticTranslation = 
-            MyClient.GetSegmentStaticTranslation( SubjectName, SegmentName );
-          output_stream << "        Static Translation: (" << _Output_GetSegmentStaticTranslation.Translation[ 0 ]  << ", " 
-                                                       << _Output_GetSegmentStaticTranslation.Translation[ 1 ]  << ", " 
-                                                       << _Output_GetSegmentStaticTranslation.Translation[ 2 ]  << ")" << std::endl;
-
-          // Get the static segment rotation in quaternion co-ordinates
-          Output_GetSegmentStaticRotationQuaternion _Output_GetSegmentStaticRotationQuaternion = 
-            MyClient.GetSegmentStaticRotationQuaternion( SubjectName, SegmentName );
-          output_stream << "        Static Rotation Quaternion: (" << _Output_GetSegmentStaticRotationQuaternion.Rotation[ 0 ]     << ", " 
-                                                               << _Output_GetSegmentStaticRotationQuaternion.Rotation[ 1 ]     << ", " 
-                                                               << _Output_GetSegmentStaticRotationQuaternion.Rotation[ 2 ]     << ", " 
-                                                               << _Output_GetSegmentStaticRotationQuaternion.Rotation[ 3 ]     << ")" << std::endl;
-
+ \
           // Get the global segment translation
           Output_GetSegmentGlobalTranslation _Output_GetSegmentGlobalTranslation = 
-            MyClient.GetSegmentGlobalTranslation( SubjectName, SegmentName );
+            MyClient.GetSegmentGlobalTranslation( SubjectName, RootSegment );
           output_stream << "        Global Translation: (" << _Output_GetSegmentGlobalTranslation.Translation[ 0 ]  << ", " 
                                                        << _Output_GetSegmentGlobalTranslation.Translation[ 1 ]  << ", " 
                                                        << _Output_GetSegmentGlobalTranslation.Translation[ 2 ]  << ") " 
@@ -470,55 +453,27 @@ int main( int argc, char* argv[] )
           
           // Get the global segment rotation in quaternion co-ordinates
           Output_GetSegmentGlobalRotationQuaternion _Output_GetSegmentGlobalRotationQuaternion = 
-            MyClient.GetSegmentGlobalRotationQuaternion( SubjectName, SegmentName );
+            MyClient.GetSegmentGlobalRotationQuaternion( SubjectName, RootSegment );
           output_stream << "        Global Rotation Quaternion: (" << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]     << ", " 
                                                                << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]     << ", " 
                                                                << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]     << ", " 
                                                                << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]     << ") " 
                                                                << Adapt( _Output_GetSegmentGlobalRotationQuaternion.Occluded ) << std::endl;
 
-          // Get the local segment translation
-          Output_GetSegmentLocalTranslation _Output_GetSegmentLocalTranslation = 
-            MyClient.GetSegmentLocalTranslation( SubjectName, SegmentName );
-          output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", " 
-                                                      << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", " 
-                                                      << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") " 
-                                                      << Adapt( _Output_GetSegmentLocalTranslation.Occluded ) << std::endl;
+          objmsg.clear();
+          objmsg.str(std::string());
+          objmsg << "42[\"obj\",[\"" << SubjectName << "\",";
+          objmsg << _Output_GetSegmentGlobalTranslation.Translation[ 0 ]/100  << ",";
+          objmsg << _Output_GetSegmentGlobalTranslation.Translation[ 1 ]/100  << ",";
+          objmsg << _Output_GetSegmentGlobalTranslation.Translation[ 2 ]/100  << "]]";
+          output_stream << objmsg.str() << std::endl;
+          //ws->send("42[\"obj\",[1.00,2.8476,3.1225]]");
+          ws->send(objmsg.str());
+          ws->poll();
+          
+        //}
 
-
-          // Get the local segment rotation in quaternion co-ordinates
-          Output_GetSegmentLocalRotationQuaternion _Output_GetSegmentLocalRotationQuaternion = 
-            MyClient.GetSegmentLocalRotationQuaternion( SubjectName, SegmentName );
-          output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", " 
-                                                              << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", " 
-                                                              << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", " 
-                                                              << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") " 
-                                                              << Adapt( _Output_GetSegmentLocalRotationQuaternion.Occluded ) << std::endl;
-
-        }
-
-        // Count the number of markers
-        unsigned int MarkerCount = MyClient.GetMarkerCount( SubjectName ).MarkerCount;
-        output_stream << "    Markers (" << MarkerCount << "):" << std::endl;
-        for( unsigned int MarkerIndex = 0 ; MarkerIndex < MarkerCount ; ++MarkerIndex )
-        {
-          // Get the marker name
-          std::string MarkerName = MyClient.GetMarkerName( SubjectName, MarkerIndex ).MarkerName;
-
-          // Get the marker parent
-          std::string MarkerParentName = MyClient.GetMarkerParentName( SubjectName, MarkerName ).SegmentName;
-
-          // Get the global marker translation
-          Output_GetMarkerGlobalTranslation _Output_GetMarkerGlobalTranslation =
-            MyClient.GetMarkerGlobalTranslation( SubjectName, MarkerName );
-
-          output_stream << "      Marker #" << MarkerIndex            << ": "
-                                        << MarkerName             << " ("
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 0 ]  << ", "
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 1 ]  << ", "
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 2 ]  << ") "
-                                        << Adapt( _Output_GetMarkerGlobalTranslation.Occluded ) << std::endl;
-        }
+ 
       }
     }
       

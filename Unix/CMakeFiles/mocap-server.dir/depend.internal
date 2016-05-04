@@ -7,3 +7,4 @@ CMakeFiles/mocap-server.dir/mocap-server.cpp.o
  /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_message.h
  /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_socket.h
  /Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-server.cpp
+ /Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf/VRCom.pb.h

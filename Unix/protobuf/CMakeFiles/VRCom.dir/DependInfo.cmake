@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient/easywsclient.cpp" "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf/VRCom.pb.cc" "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/Users/mlantin/Documents/Research/VR/mocap-server/src"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf"
   )
 
 # Targets to which this target links.

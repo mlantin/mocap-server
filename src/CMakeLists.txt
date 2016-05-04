@@ -19,6 +19,11 @@ set_property(TARGET sioclient PROPERTY IMPORTED_LOCATION ${EXT_LIB}/sioclient/li
 add_library(sioclient_tls STATIC IMPORTED)
 set_property(TARGET sioclient_tls PROPERTY IMPORTED_LOCATION ${EXT_LIB}/sioclient/lib/Release/libsioclient_tls.a)
 
+add_library(protobuf_lib STATIC IMPORTED)
+set_property(TARGET protobuf_lib PROPERTY IMPORTED_LOCATION /usr/local/lib/libprotobuf.a)
+
+add_subdirectory(protobuf)
+
 add_executable(mocap-server mocap-server.cpp)
-target_link_libraries(mocap-server vicon boost_combined sioclient sioclient_tls)
+target_link_libraries(mocap-server vicon boost_combined sioclient sioclient_tls protobuf_lib VRCom)
 target_compile_features(mocap-server PUBLIC cxx_range_for)

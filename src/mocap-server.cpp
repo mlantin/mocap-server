@@ -1,8 +1,10 @@
 #include "Vicon/Client.h"
 
 #include "sioclient/include/sio_client.h"
+#include "VRCom.pb.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cassert>
 #include <ctime>
 #include <stdio.h>
@@ -242,10 +244,30 @@ int main( int argc, char* argv[] )
     // Connect to vr websocket server
 
     sio::client wsvr;
-    wsvr.connect("ws://192.168.11.67:4567/socket.io/?EIO=4&transport=websocket");
+    wsvr.connect("ws://192.168.2.1:4567/socket.io/?EIO=4&transport=websocket");
+
+    VRCom::Mocap* mocap = new VRCom::Mocap();
+    VRCom::Position* pos = new VRCom::Position();
+    VRCom::Rotation* rot = new VRCom::Rotation();
+    mocap->set_allocated_rot(rot);
+    mocap->set_allocated_pos(pos);
+    // Fill the mocap message with data so we can get the right buffer size (this is because in proto3
+    // all fields are considered optional.)
+
+    // set this to a length that it won't ever exceed
+    mocap->set_name("12345678901234567");
+    pos->set_x(1);
+    pos->set_y(1);
+    pos->set_z(1);
+    rot->set_x(1);
+    rot->set_y(1);
+    rot->set_z(1);
+    rot->set_w(1);
+
+    std::ostringstream bufstr;
 
     // set up the data structure for sending data to wsvr
-    sio::message::ptr msg = sio::array_message::create();
+//    sio::message::ptr msg = sio::array_message::create();
 
     std::cout << std::endl;
 
@@ -422,42 +444,57 @@ int main( int argc, char* argv[] )
                                                                << Adapt( _Output_GetSegmentGlobalRotationQuaternion.Occluded ) << std::endl;
 
           
-          std::vector<sio::message::ptr> vec = msg->get_vector();
-          vec.clear();
-          vec.push_back(sio::string_message::create(SubjectName));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
-          vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
+          // std::vector<sio::message::ptr> vec = msg->get_vector();
+          // vec.clear();
+          // vec.push_back(sio::string_message::create(SubjectName));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
+          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
 
-          wsvr.socket()->emit("obj", msg);
+          pos->set_x(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]);
+          pos->set_y(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]);
+          pos->set_z(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]);
+
+          rot->set_x(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]);
+          rot->set_y(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]);
+          rot->set_z(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]);
+          rot->set_w(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]);
+
+          mocap->set_name(SubjectName);
+
+          mocap->SerializeToOstream(&bufstr);
+
+          wsvr.socket()->emit("mocap", std::make_shared<std::string>(bufstr.str()));
+          std::ostringstream().swap(bufstr);
+          bufstr.clear();
         //}
 
         // Count the number of markers
-        unsigned int MarkerCount = MyClient.GetMarkerCount( SubjectName ).MarkerCount;
-        output_stream << "    Markers (" << MarkerCount << "):" << std::endl;
-        for( unsigned int MarkerIndex = 0 ; MarkerIndex < MarkerCount ; ++MarkerIndex )
-        {
-          // Get the marker name
-          std::string MarkerName = MyClient.GetMarkerName( SubjectName, MarkerIndex ).MarkerName;
+        // unsigned int MarkerCount = MyClient.GetMarkerCount( SubjectName ).MarkerCount;
+        // output_stream << "    Markers (" << MarkerCount << "):" << std::endl;
+        // for( unsigned int MarkerIndex = 0 ; MarkerIndex < MarkerCount ; ++MarkerIndex )
+        // {
+        //   // Get the marker name
+        //   std::string MarkerName = MyClient.GetMarkerName( SubjectName, MarkerIndex ).MarkerName;
 
-          // Get the marker parent
-          std::string MarkerParentName = MyClient.GetMarkerParentName( SubjectName, MarkerName ).SegmentName;
+        //   // Get the marker parent
+        //   std::string MarkerParentName = MyClient.GetMarkerParentName( SubjectName, MarkerName ).SegmentName;
 
-          // Get the global marker translation
-          Output_GetMarkerGlobalTranslation _Output_GetMarkerGlobalTranslation =
-            MyClient.GetMarkerGlobalTranslation( SubjectName, MarkerName );
+        //   // Get the global marker translation
+        //   Output_GetMarkerGlobalTranslation _Output_GetMarkerGlobalTranslation =
+        //     MyClient.GetMarkerGlobalTranslation( SubjectName, MarkerName );
 
-          output_stream << "      Marker #" << MarkerIndex            << ": "
-                                        << MarkerName             << " ("
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 0 ]  << ", "
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 1 ]  << ", "
-                                        << _Output_GetMarkerGlobalTranslation.Translation[ 2 ]  << ") "
-                                        << Adapt( _Output_GetMarkerGlobalTranslation.Occluded ) << std::endl;
-        }
+        //   output_stream << "      Marker #" << MarkerIndex            << ": "
+        //                                 << MarkerName             << " ("
+        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 0 ]  << ", "
+        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 1 ]  << ", "
+        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 2 ]  << ") "
+        //                                 << Adapt( _Output_GetMarkerGlobalTranslation.Occluded ) << std::endl;
+        // }
       }
     }
       

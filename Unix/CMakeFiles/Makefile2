@@ -63,10 +63,10 @@ CMAKE_BINARY_DIR = /Users/mlantin/Documents/Research/VR/mocap-server/Unix
 # Target rules for target CMakeFiles/mocap-server.dir
 
 # All Build rule for target.
-CMakeFiles/mocap-server.dir/all:
+CMakeFiles/mocap-server.dir/all: protobuf/CMakeFiles/VRCom.dir/all
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/depend
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=1,2 "Built target mocap-server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=3,4 "Built target mocap-server"
 .PHONY : CMakeFiles/mocap-server.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/mocap-server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mocap-server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/mocap-server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
 .PHONY : CMakeFiles/mocap-server.dir/rule
@@ -93,6 +93,61 @@ CMakeFiles/mocap-server.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/mocap-server.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory protobuf
+
+# Convenience name for "all" pass in the directory.
+protobuf/all: protobuf/CMakeFiles/VRCom.dir/all
+
+.PHONY : protobuf/all
+
+# Convenience name for "clean" pass in the directory.
+protobuf/clean: protobuf/CMakeFiles/VRCom.dir/clean
+
+.PHONY : protobuf/clean
+
+# Convenience name for "preinstall" pass in the directory.
+protobuf/preinstall:
+
+.PHONY : protobuf/preinstall
+
+#=============================================================================
+# Target rules for target protobuf/CMakeFiles/VRCom.dir
+
+# All Build rule for target.
+protobuf/CMakeFiles/VRCom.dir/all:
+	$(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/depend
+	$(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=1,2 "Built target VRCom"
+.PHONY : protobuf/CMakeFiles/VRCom.dir/all
+
+# Include target in all.
+all: protobuf/CMakeFiles/VRCom.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+protobuf/CMakeFiles/VRCom.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 protobuf/CMakeFiles/VRCom.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
+.PHONY : protobuf/CMakeFiles/VRCom.dir/rule
+
+# Convenience name for target.
+VRCom: protobuf/CMakeFiles/VRCom.dir/rule
+
+.PHONY : VRCom
+
+# clean rule for target.
+protobuf/CMakeFiles/VRCom.dir/clean:
+	$(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/clean
+.PHONY : protobuf/CMakeFiles/VRCom.dir/clean
+
+# clean rule for target.
+clean: protobuf/CMakeFiles/VRCom.dir/clean
 
 .PHONY : clean
 

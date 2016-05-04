@@ -123,6 +123,19 @@ mocap-server/fast:
 	$(MAKE) -f CMakeFiles/mocap-server.dir/build.make CMakeFiles/mocap-server.dir/build
 .PHONY : mocap-server/fast
 
+#=============================================================================
+# Target rules for targets named VRCom
+
+# Build rule for target.
+VRCom: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 VRCom
+.PHONY : VRCom
+
+# fast build rule for target.
+VRCom/fast:
+	$(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/build
+.PHONY : VRCom/fast
+
 mocap-server.o: mocap-server.cpp.o
 
 .PHONY : mocap-server.o
@@ -159,6 +172,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... mocap-server"
+	@echo "... VRCom"
 	@echo "... mocap-server.o"
 	@echo "... mocap-server.i"
 	@echo "... mocap-server.s"

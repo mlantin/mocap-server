@@ -152,6 +152,61 @@ clean: protobuf/CMakeFiles/VRCom.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory mocap-test
+
+# Convenience name for "all" pass in the directory.
+mocap-test/all: mocap-test/CMakeFiles/mocap-test.dir/all
+
+.PHONY : mocap-test/all
+
+# Convenience name for "clean" pass in the directory.
+mocap-test/clean: mocap-test/CMakeFiles/mocap-test.dir/clean
+
+.PHONY : mocap-test/clean
+
+# Convenience name for "preinstall" pass in the directory.
+mocap-test/preinstall:
+
+.PHONY : mocap-test/preinstall
+
+#=============================================================================
+# Target rules for target mocap-test/CMakeFiles/mocap-test.dir
+
+# All Build rule for target.
+mocap-test/CMakeFiles/mocap-test.dir/all: protobuf/CMakeFiles/VRCom.dir/all
+	$(MAKE) -f mocap-test/CMakeFiles/mocap-test.dir/build.make mocap-test/CMakeFiles/mocap-test.dir/depend
+	$(MAKE) -f mocap-test/CMakeFiles/mocap-test.dir/build.make mocap-test/CMakeFiles/mocap-test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles --progress-num=5,6 "Built target mocap-test"
+.PHONY : mocap-test/CMakeFiles/mocap-test.dir/all
+
+# Include target in all.
+all: mocap-test/CMakeFiles/mocap-test.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+mocap-test/CMakeFiles/mocap-test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 mocap-test/CMakeFiles/mocap-test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mlantin/Documents/Research/VR/mocap-server/Unix/CMakeFiles 0
+.PHONY : mocap-test/CMakeFiles/mocap-test.dir/rule
+
+# Convenience name for target.
+mocap-test: mocap-test/CMakeFiles/mocap-test.dir/rule
+
+.PHONY : mocap-test
+
+# clean rule for target.
+mocap-test/CMakeFiles/mocap-test.dir/clean:
+	$(MAKE) -f mocap-test/CMakeFiles/mocap-test.dir/build.make mocap-test/CMakeFiles/mocap-test.dir/clean
+.PHONY : mocap-test/CMakeFiles/mocap-test.dir/clean
+
+# clean rule for target.
+clean: mocap-test/CMakeFiles/mocap-test.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

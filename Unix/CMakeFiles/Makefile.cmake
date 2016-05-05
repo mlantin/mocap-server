@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.4.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.4.1/CMakeSystem.cmake"
   "/Users/mlantin/Documents/Research/VR/mocap-server/src/CMakeLists.txt"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-test/CMakeLists.txt"
   "/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf/CMakeLists.txt"
   "/opt/local/share/cmake-3.4/Modules/CMakeCInformation.cmake"
   "/opt/local/share/cmake-3.4/Modules/CMakeCXXInformation.cmake"
@@ -42,10 +43,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "protobuf/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "mocap-test/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/mocap-server.dir/DependInfo.cmake"
   "protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake"
+  "mocap-test/CMakeFiles/mocap-test.dir/DependInfo.cmake"
   )

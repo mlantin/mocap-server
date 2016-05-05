@@ -135,8 +135,28 @@ namespace
         return "Unknown";
     }
   }
+<<<<<<< HEAD
 }
 
+=======
+#ifdef WIN32
+  bool Hit()
+  {
+    bool hit = false;
+    while( _kbhit() )
+    {
+      getchar();
+      hit = true;
+    }
+    return hit;
+  }
+#endif
+}
+
+using easywsclient::WebSocket;
+static WebSocket::pointer ws = NULL;
+
+>>>>>>> simplesocket
 int main( int argc, char* argv[] )
 {
   // Program options
@@ -246,6 +266,7 @@ int main( int argc, char* argv[] )
     sio::client wsvr;
     wsvr.connect("ws://192.168.2.1:4567/socket.io/?EIO=4&transport=websocket");
 
+<<<<<<< HEAD
     VRCom::Mocap* mocap = new VRCom::Mocap();
     VRCom::Position* pos = new VRCom::Position();
     VRCom::Rotation* rot = new VRCom::Rotation();
@@ -268,6 +289,13 @@ int main( int argc, char* argv[] )
 
     // set up the data structure for sending data to wsvr
 //    sio::message::ptr msg = sio::array_message::create();
+=======
+    ws = WebSocket::from_url("ws://192.168.11.67:4567/socket.io/?EIO=4&transport=websocket");
+    assert(ws);
+
+    std::stringstream objmsg;
+    objmsg.precision(7);
+>>>>>>> simplesocket
 
     std::cout << std::endl;
 
@@ -425,6 +453,10 @@ int main( int argc, char* argv[] )
         //     output_stream << "       " << ChildName << std::endl;
         //   }
 
+<<<<<<< HEAD
+=======
+ \
+>>>>>>> simplesocket
           // Get the global segment translation
           Output_GetSegmentGlobalTranslation _Output_GetSegmentGlobalTranslation = 
             MyClient.GetSegmentGlobalTranslation( SubjectName, RootSegment );
@@ -443,6 +475,7 @@ int main( int argc, char* argv[] )
                                                                << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]     << ") " 
                                                                << Adapt( _Output_GetSegmentGlobalRotationQuaternion.Occluded ) << std::endl;
 
+<<<<<<< HEAD
           
           // std::vector<sio::message::ptr> vec = msg->get_vector();
           // vec.clear();

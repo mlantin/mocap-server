@@ -1,6 +1,5 @@
 #include "Vicon/Client.h"
-
-#include "sioclient/include/sio_client.h"
+#include "easywsclient.hpp"
 #include "VRCom.pb.h"
 #include <iostream>
 #include <fstream>
@@ -10,6 +9,7 @@
 #include <stdio.h>
 #include <string>
 
+void allocateSubjects(VRCom::Mocap* mocap, int numSubjects);
 
 using namespace ViconDataStreamSDK::CPP;
 
@@ -135,28 +135,8 @@ namespace
         return "Unknown";
     }
   }
-<<<<<<< HEAD
 }
 
-=======
-#ifdef WIN32
-  bool Hit()
-  {
-    bool hit = false;
-    while( _kbhit() )
-    {
-      getchar();
-      hit = true;
-    }
-    return hit;
-  }
-#endif
-}
-
-using easywsclient::WebSocket;
-static WebSocket::pointer ws = NULL;
-
->>>>>>> simplesocket
 int main( int argc, char* argv[] )
 {
   // Program options
@@ -263,47 +243,22 @@ int main( int argc, char* argv[] )
 
     // Connect to vr websocket server
 
-    sio::client wsvr;
-    wsvr.connect("ws://192.168.2.1:4567/socket.io/?EIO=4&transport=websocket");
-
-<<<<<<< HEAD
-    VRCom::Mocap* mocap = new VRCom::Mocap();
-    VRCom::Position* pos = new VRCom::Position();
-    VRCom::Rotation* rot = new VRCom::Rotation();
-    mocap->set_allocated_rot(rot);
-    mocap->set_allocated_pos(pos);
-    // Fill the mocap message with data so we can get the right buffer size (this is because in proto3
-    // all fields are considered optional.)
-
-    // set this to a length that it won't ever exceed
-    mocap->set_name("12345678901234567");
-    pos->set_x(1);
-    pos->set_y(1);
-    pos->set_z(1);
-    rot->set_x(1);
-    rot->set_y(1);
-    rot->set_z(1);
-    rot->set_w(1);
-
-    std::ostringstream bufstr;
-
-    // set up the data structure for sending data to wsvr
-//    sio::message::ptr msg = sio::array_message::create();
-=======
-    ws = WebSocket::from_url("ws://192.168.11.67:4567/socket.io/?EIO=4&transport=websocket");
+    using easywsclient::WebSocket;
+    WebSocket::pointer ws = WebSocket::from_url("ws://192.168.2.1:4567");
     assert(ws);
 
-    std::stringstream objmsg;
-    objmsg.precision(7);
->>>>>>> simplesocket
+    VRCom::Update* msg = new VRCom::Update();
+    VRCom::Mocap* mocap = new VRCom::Mocap();
+    msg->set_allocated_mocap(mocap);
+    
+    int numSubjects = 0;
+
+    std::ostringstream bufstr;
 
     std::cout << std::endl;
 
     // Enable some different data types
     MyClient.EnableSegmentData();
-    MyClient.EnableMarkerData();
-    MyClient.EnableUnlabeledMarkerData();
-    MyClient.EnableDeviceData();
 
     std::cout << "Segment Data Enabled: "          << Adapt( MyClient.IsSegmentDataEnabled().Enabled )         << std::endl;
     std::cout << "Marker Data Enabled: "           << Adapt( MyClient.IsMarkerDataEnabled().Enabled )          << std::endl;
@@ -316,12 +271,12 @@ int main( int argc, char* argv[] )
     MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ServerPush );
 
     // Set the global up axis
+    // MyClient.SetAxisMapping( Direction::Forward, 
+    //                          Direction::Left, 
+    //                          Direction::Up ); // Z-up
     MyClient.SetAxisMapping( Direction::Forward, 
-                             Direction::Left, 
-                             Direction::Up ); // Z-up
-    // MyClient.SetGlobalUpAxis( Direction::Forward, 
-    //                           Direction::Up, 
-    //                           Direction::Right ); // Y-up
+                              Direction::Up, 
+                              Direction::Right ); // Y-up
 
     Output_GetAxisMapping _Output_GetAxisMapping = MyClient.GetAxisMapping();
     std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis ) 
@@ -416,6 +371,11 @@ int main( int argc, char* argv[] )
 
       // Count the number of subjects
       unsigned int SubjectCount = MyClient.GetSubjectCount().SubjectCount;
+      if (numSubjects != SubjectCount) {
+        allocateSubjects(mocap, SubjectCount);
+        numSubjects = SubjectCount;
+      }
+
       output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
       for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount ; ++SubjectIndex )
       {
@@ -453,10 +413,6 @@ int main( int argc, char* argv[] )
         //     output_stream << "       " << ChildName << std::endl;
         //   }
 
-<<<<<<< HEAD
-=======
- \
->>>>>>> simplesocket
           // Get the global segment translation
           Output_GetSegmentGlobalTranslation _Output_GetSegmentGlobalTranslation = 
             MyClient.GetSegmentGlobalTranslation( SubjectName, RootSegment );
@@ -475,7 +431,6 @@ int main( int argc, char* argv[] )
                                                                << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]     << ") " 
                                                                << Adapt( _Output_GetSegmentGlobalRotationQuaternion.Occluded ) << std::endl;
 
-<<<<<<< HEAD
           
           // std::vector<sio::message::ptr> vec = msg->get_vector();
           // vec.clear();
@@ -488,6 +443,12 @@ int main( int argc, char* argv[] )
           // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
           // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
 
+          VRCom::Mocap::Subject* subj = mocap->mutable_subjects(SubjectIndex);
+          VRCom::Position* pos = subj->mutable_pos();
+          VRCom::Rotation* rot = subj->mutable_rot();
+
+          subj->set_name(SubjectName);
+
           pos->set_x(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]);
           pos->set_y(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]);
           pos->set_z(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]);
@@ -497,11 +458,10 @@ int main( int argc, char* argv[] )
           rot->set_z(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]);
           rot->set_w(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]);
 
-          mocap->set_name(SubjectName);
+          msg->SerializeToOstream(&bufstr);
 
-          mocap->SerializeToOstream(&bufstr);
+          ws->sendBinary(bufstr.str());
 
-          wsvr.socket()->emit("mocap", std::make_shared<std::string>(bufstr.str()));
           std::ostringstream().swap(bufstr);
           bufstr.clear();
         //}
@@ -549,6 +509,17 @@ int main( int argc, char* argv[] )
     double secs = (double) (dt)/(double)CLOCKS_PER_SEC;
     std::cout << " Disconnect time = " << secs << " secs" << std::endl;
 
-    //wsvr.close();
+    ws->close();
+  }
+}
+
+void allocateSubjects(VRCom::Mocap* mocap, int numSubjects) {
+  mocap->clear_subjects();
+  for (int i = 0; i < numSubjects; i++) {
+    VRCom::Mocap::Subject* subj = mocap->add_subjects();
+    VRCom::Position* pos = new VRCom::Position();
+    VRCom::Rotation* rot = new VRCom::Rotation();
+    subj->set_allocated_rot(rot);
+    subj->set_allocated_pos(pos);
   }
 }

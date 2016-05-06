@@ -12,11 +12,13 @@ set(CMAKE_CXX_COMPILER_ID "AppleClang")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/Users/mlantin/Documents/Research/VR/mocap-server/src"
   "/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib"
+  "/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient"
   "/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake"
   "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake"
   )
 

@@ -91,9 +91,7 @@ mocap__server_EXTERNAL_OBJECTS =
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/mocap-server.cpp.o
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/build.make
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libboost_combined.a
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient.a
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient_tls.a
+/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /usr/local/lib/libprotobuf.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: /Users/mlantin/Documents/Research/VR/mocap-server/bin/libVRCom.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/link.txt

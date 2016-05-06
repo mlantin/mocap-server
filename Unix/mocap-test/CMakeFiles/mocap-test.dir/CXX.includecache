@@ -6,41 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_client.h
+/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient/easywsclient.hpp
 string
--
-functional
--
-sio_message.h
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_message.h
-sio_socket.h
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_socket.h
-
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_message.h
-string
--
-memory
 -
 vector
--
-map
--
-cassert
--
-type_traits
--
-
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_socket.h
-sio_message.h
-/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/include/sio_message.h
-functional
 -
 
 /Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-test/mocap-test.cpp
 VRCom.pb.h
 /Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-test/VRCom.pb.h
-sioclient/include/sio_client.h
-/Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-test/sioclient/include/sio_client.h
+easywsclient.hpp
+/Users/mlantin/Documents/Research/VR/mocap-server/src/mocap-test/easywsclient.hpp
 math.h
 -
 chrono
@@ -50,6 +26,8 @@ thread
 iostream
 -
 sstream
+-
+cassert
 -
 
 /Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf/VRCom.pb.h

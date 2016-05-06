@@ -29,6 +29,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/cmake_install.cmake")
   include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/protobuf/cmake_install.cmake")
   include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/mocap-test/cmake_install.cmake")
 

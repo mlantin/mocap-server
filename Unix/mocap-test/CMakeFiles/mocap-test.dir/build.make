@@ -90,9 +90,7 @@ mocap__test_EXTERNAL_OBJECTS =
 
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/build.make
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libboost_combined.a
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient.a
-/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /Users/mlantin/Documents/Research/VR/mocap-server/src/../lib/sioclient/lib/Release/libsioclient_tls.a
+/Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /usr/local/lib/libprotobuf.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: /Users/mlantin/Documents/Research/VR/mocap-server/bin/libVRCom.a
 /Users/mlantin/Documents/Research/VR/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/link.txt

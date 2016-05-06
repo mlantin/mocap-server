@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/mlantin/Documents/Research/VR/mocap-server/src -I/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib -I/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf 
+CXX_INCLUDES = -I/Users/mlantin/Documents/Research/VR/mocap-server/src -I/Users/mlantin/Documents/Research/VR/mocap-server/src/../lib -I/Users/mlantin/Documents/Research/VR/mocap-server/src/easywsclient -I/Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf 
 

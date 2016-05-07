@@ -38,7 +38,7 @@ int main() {
        rot->set_z(0);
        rot->set_w(1);
 
-       mocap->SerializeToOstream(&bufstr);
+       msg->SerializeToOstream(&bufstr);
 
        ws->sendBinary(bufstr.str());
        ws->poll();
@@ -46,7 +46,7 @@ int main() {
        std::ostringstream().swap(bufstr);
        bufstr.clear();
 
-       std::this_thread::sleep_for(std::chrono::milliseconds(60));
+       std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
     	}
     }

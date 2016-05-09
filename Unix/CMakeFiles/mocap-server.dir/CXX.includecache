@@ -57,6 +57,10 @@ google/protobuf/repeated_field.h
 -
 google/protobuf/extension_set.h
 -
+google/protobuf/map.h
+-
+google/protobuf/map_field_inl.h
+-
 google/protobuf/unknown_field_set.h
 -
 

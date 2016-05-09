@@ -250,6 +250,7 @@ int main( int argc, char* argv[] )
     VRCom::Update* msg = new VRCom::Update();
     VRCom::Mocap* mocap = new VRCom::Mocap();
     msg->set_allocated_mocap(mocap);
+    auto& subjects = *mocap->mutable_subjects();
     
     int numSubjects = 0;
 
@@ -294,6 +295,14 @@ int main( int argc, char* argv[] )
       assert( MyClient.IsConnected().Connected );
       MyClient.StartTransmittingMulticast( HostName, MulticastAddress );
     }
+
+
+    // get the number of subjects and allocate the map.
+    // We are assuming that the number and set of subjects won't change.
+    // This may not be a great assumption. The alternative is to reallocate 
+    // at each frame or check if there are differences at each frame.
+    //allocateSubjects(MyClient, subjects, SubjectCount);
+
 
     size_t FrameRateWindow = 1000; // frames
     size_t Counter = 0;
@@ -371,10 +380,10 @@ int main( int argc, char* argv[] )
 
       // Count the number of subjects
       unsigned int SubjectCount = MyClient.GetSubjectCount().SubjectCount;
-      if (numSubjects != SubjectCount) {
-        allocateSubjects(mocap, SubjectCount);
-        numSubjects = SubjectCount;
-      }
+      // if (numSubjects != SubjectCount) {
+      //   allocateSubjects(mocap, SubjectCount);
+      //   numSubjects = SubjectCount;
+      // }
 
       output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
       for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount ; ++SubjectIndex )
@@ -443,11 +452,9 @@ int main( int argc, char* argv[] )
           // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
           // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
 
-          VRCom::Mocap::Subject* subj = mocap->mutable_subjects(SubjectIndex);
-          VRCom::Position* pos = subj->mutable_pos();
-          VRCom::Rotation* rot = subj->mutable_rot();
-
-          subj->set_name(SubjectName);
+          VRCom::MocapSubject& currentSubj = subjects[SubjectName];                                                 
+          VRCom::Position* pos = currentSubj.mutable_pos();
+          VRCom::Rotation* rot = currentSubj.mutable_rot();
 
           pos->set_x(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]);
           pos->set_y(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]);
@@ -513,13 +520,13 @@ int main( int argc, char* argv[] )
   }
 }
 
-void allocateSubjects(VRCom::Mocap* mocap, int numSubjects) {
-  mocap->clear_subjects();
-  for (int i = 0; i < numSubjects; i++) {
-    VRCom::Mocap::Subject* subj = mocap->add_subjects();
-    VRCom::Position* pos = new VRCom::Position();
-    VRCom::Rotation* rot = new VRCom::Rotation();
-    subj->set_allocated_rot(rot);
-    subj->set_allocated_pos(pos);
-  }
-}
+// void allocateSubjects(VRCom::Mocap* mocap, int numSubjects) {
+//   mocap->clear_subjects();
+//   for (int i = 0; i < numSubjects; i++) {
+//     VRCom::MocapSubject* subj = mocap->add_subjects();
+//     VRCom::Position* pos = new VRCom::Position();
+//     VRCom::Rotation* rot = new VRCom::Rotation();
+//     subj->set_allocated_rot(rot);
+//     subj->set_allocated_pos(pos);
+//   }
+// }

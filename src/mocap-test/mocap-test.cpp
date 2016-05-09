@@ -10,33 +10,30 @@
 int main() {
 	
   using easywsclient::WebSocket;
-  WebSocket::pointer ws = WebSocket::from_url("ws://192.168.2.1:4567");
+  WebSocket::pointer ws = WebSocket::from_url("ws://192.168.11.34:4567");
   assert(ws);
 
 	std::ostringstream bufstr;
   VRCom::Update* msg = new VRCom::Update();
 	VRCom::Mocap* mocap = new VRCom::Mocap();
   msg->set_allocated_mocap(mocap);
-  VRCom::Mocap::Subject* subj = mocap->add_subjects();
-  VRCom::Position* pos = new VRCom::Position();
-  VRCom::Rotation* rot = new VRCom::Rotation();
-  subj->set_name("test");
-  subj->set_allocated_rot(rot);
-  subj->set_allocated_pos(pos);
+  auto& subjects = *mocap->mutable_subjects();
+
+  auto& currentSubj = subjects["test"];
 
   const double PI = 2*acos(0.0); 
   float angle;
   while(true) {
     for (int i = 0; i < 100; i++) {
     	 angle = 2*PI/100*i;
-    	 pos->set_x(sin(angle)*3);
-       pos->set_y(cos(angle)*3);
-       pos->set_z(0);
+    	 currentSubj.mutable_pos()->set_x(sin(angle)*3);
+       currentSubj.mutable_pos()->set_y(cos(angle)*3);
+       currentSubj.mutable_pos()->set_z(0);
 
-       rot->set_x(0);
-       rot->set_y(0);
-       rot->set_z(0);
-       rot->set_w(1);
+       currentSubj.mutable_rot()->set_x(0);
+       currentSubj.mutable_rot()->set_y(0);
+       currentSubj.mutable_rot()->set_z(0);
+       currentSubj.mutable_rot()->set_w(0);
 
        msg->SerializeToOstream(&bufstr);
 

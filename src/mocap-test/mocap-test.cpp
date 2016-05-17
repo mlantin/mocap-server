@@ -10,7 +10,7 @@
 int main() {
 	
   using easywsclient::WebSocket;
-  WebSocket::pointer ws = WebSocket::from_url("ws://192.168.11.34:4567");
+  WebSocket::pointer ws = WebSocket::from_url("ws://192.168.2.1:4567");
   assert(ws);
 
 	std::ostringstream bufstr;
@@ -26,12 +26,13 @@ int main() {
   while(true) {
     for (int i = 0; i < 100; i++) {
     	 angle = 2*PI/100*i;
-    	 currentSubj.mutable_pos()->set_x(sin(angle)*3);
-       currentSubj.mutable_pos()->set_y(cos(angle)*3);
+    	 currentSubj.mutable_pos()->set_x(sin(angle)*3000);
+       currentSubj.mutable_pos()->set_y(cos(angle)*3000);
        currentSubj.mutable_pos()->set_z(0);
 
-       currentSubj.mutable_rot()->set_x(0);
-       currentSubj.mutable_rot()->set_y(0);
+       //rotation of 10 degrees in Z.
+       currentSubj.mutable_rot()->set_x(0.9961946980917455);
+       currentSubj.mutable_rot()->set_y(0.08715574274765817);
        currentSubj.mutable_rot()->set_z(0);
        currentSubj.mutable_rot()->set_w(0);
 

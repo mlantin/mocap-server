@@ -8,8 +8,9 @@
 #include <ctime>
 #include <stdio.h>
 #include <string>
-
-void allocateSubjects(VRCom::Mocap* mocap, int numSubjects);
+#include <chrono>
+#include <thread>
+#include <math.h>
 
 using namespace ViconDataStreamSDK::CPP;
 
@@ -137,26 +138,39 @@ namespace
   }
 }
 
+const double PI = 2*acos(0.0); 
+
+enum axisOrientation {
+    YUP,
+    ZUP
+  };
+
 int main( int argc, char* argv[] )
 {
   // Program options
-  
+ 
+  axisOrientation axes = ZUP;
   std::string HostName = "localhost:801";
+  std::string WebsocketAddr = "192.168.2.1:4567";
+  int a = 1;
   if( argc > 1 )
   {
     HostName = argv[1];
+    a = 2;
+  }
+  if (argc > 2) {
+    WebsocketAddr = argv[2];
+    a = 3;
   }
 
   std::string LogFile = "";
-  std::string MulticastAddress = "244.0.0.0:44801";
-  bool ConnectToMultiCast = false;
-  bool EnableMultiCast = false;
-  for(int a=2; a < argc; ++a)
+  
+  for(; a < argc; ++a)
   {
     std::string arg = argv[a];
     if(arg == "--help")
     {
-      std::cout << argv[0] << " <HostName>: allowed options include:\n  --log_file <LogFile> --enable_multicast <MulticastAddress:Port> --connect_to_multicast <MulticastAddress:Port> --help" << std::endl;
+      std::cout << argv[0] << " <HostName> <websocket addr>: allowed options include:\n  --log_file <LogFile> --orient <ZUP | YUP> --help" << std::endl;
       return 0;
     }
     else if (arg=="--log_file")
@@ -168,24 +182,12 @@ int main( int argc, char* argv[] )
         ++a;
       }
     }
-    else if (arg=="--enable_multicast")
-    {
-      EnableMultiCast = true;
-      if(a < argc)
-      {
-        MulticastAddress = argv[a+1];
-        std::cout << "Enabling multicast address <"<< MulticastAddress << "> ..." << std::endl;
-        ++a;
-      }
-    }
-    else if (arg=="--connect_to_multicast")
-    {
-      ConnectToMultiCast = true;
-      if(a < argc)
-      {
-        MulticastAddress = argv[a+1];
-        std::cout << "connecting to multicast address <"<< MulticastAddress << "> ..." << std::endl;
-        ++a;
+    else if (arg == "--orient") {
+      if (a < argc) {
+        std::string orient = argv[a+1];
+        if (orient == "YUP")
+          axes = YUP;
+        a++;
       }
     }
     else
@@ -218,16 +220,7 @@ int main( int argc, char* argv[] )
       // Direct connection
 
       bool ok = false;
-      if(ConnectToMultiCast)
-      {
-        // Multicast connection
-        ok = ( MyClient.ConnectToMulticast( HostName, MulticastAddress ).Result == Result::Success );
-
-      }
-      else
-      {
-        ok =( MyClient.Connect( HostName ).Result == Result::Success );
-      }
+      ok =( MyClient.Connect( HostName ).Result == Result::Success );
       if(!ok)
       {
         std::cout << "Warning - connect failed..." << std::endl;
@@ -244,7 +237,7 @@ int main( int argc, char* argv[] )
     // Connect to vr websocket server
 
     using easywsclient::WebSocket;
-    WebSocket::pointer ws = WebSocket::from_url("ws://192.168.2.1:4567");
+    WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
     assert(ws);
 
     VRCom::Update* msg = new VRCom::Update();
@@ -271,13 +264,16 @@ int main( int argc, char* argv[] )
     // MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPullPreFetch );
     MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ServerPush );
 
-    // Set the global up axis
-    // MyClient.SetAxisMapping( Direction::Forward, 
-    //                          Direction::Left, 
-    //                          Direction::Up ); // Z-up
-    MyClient.SetAxisMapping( Direction::Forward, 
-                              Direction::Up, 
-                              Direction::Right ); // Y-up
+    if (axes == ZUP) {
+      //Set the global up axis
+      MyClient.SetAxisMapping( Direction::Forward,
+                               Direction::Left, 
+                               Direction::Up ); // Z-up
+    } else {
+      MyClient.SetAxisMapping( Direction::Forward, 
+                               Direction::Up, 
+                               Direction::Right ); // Y-up
+    }
 
     Output_GetAxisMapping _Output_GetAxisMapping = MyClient.GetAxisMapping();
     std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis ) 
@@ -289,12 +285,6 @@ int main( int argc, char* argv[] )
     std::cout << "Version: " << _Output_GetVersion.Major << "." 
                              << _Output_GetVersion.Minor << "." 
                              << _Output_GetVersion.Point << std::endl;
-
-    if( EnableMultiCast )
-    {
-      assert( MyClient.IsConnected().Connected );
-      MyClient.StartTransmittingMulticast( HostName, MulticastAddress );
-    }
 
 
     // get the number of subjects and allocate the map.
@@ -315,7 +305,7 @@ int main( int argc, char* argv[] )
   #endif
     {
       // Get a frame
-      output_stream << "Waiting for new frame...";
+      //output_stream << "Waiting for new frame...";
       while( MyClient.GetFrame().Result != Result::Success )
       {
         // Sleep a little so that we don't lumber the CPU with a busy poll
@@ -325,9 +315,9 @@ int main( int argc, char* argv[] )
           sleep(1);
         #endif
 
-        output_stream << ".";
+        //output_stream << ".";
       }
-      output_stream << std::endl;
+      //output_stream << std::endl;
       if(++Counter == FrameRateWindow)
       {
         clock_t Now = clock();
@@ -348,35 +338,35 @@ int main( int argc, char* argv[] )
 
       // Get the frame number
       Output_GetFrameNumber _Output_GetFrameNumber = MyClient.GetFrameNumber();
-      output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
+      //output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
 
       Output_GetFrameRate Rate = MyClient.GetFrameRate();
-      std::cout << "Frame rate: "           << Rate.FrameRateHz          << std::endl;
+      //std::cout << "Frame rate: "           << Rate.FrameRateHz          << std::endl;
       // Get the timecode
       Output_GetTimecode _Output_GetTimecode  = MyClient.GetTimecode();
 
-      output_stream << "Timecode: "
-                << _Output_GetTimecode.Hours               << "h "
-                << _Output_GetTimecode.Minutes             << "m " 
-                << _Output_GetTimecode.Seconds             << "s "
-                << _Output_GetTimecode.Frames              << "f "
-                << _Output_GetTimecode.SubFrame            << "sf "
-                << Adapt( _Output_GetTimecode.FieldFlag ) << " " 
-                << _Output_GetTimecode.Standard            << " " 
-                << _Output_GetTimecode.SubFramesPerFrame   << " " 
-                << _Output_GetTimecode.UserBits            << std::endl << std::endl;
+      // output_stream << "Timecode: "
+      //           << _Output_GetTimecode.Hours               << "h "
+      //           << _Output_GetTimecode.Minutes             << "m " 
+      //           << _Output_GetTimecode.Seconds             << "s "
+      //           << _Output_GetTimecode.Frames              << "f "
+      //           << _Output_GetTimecode.SubFrame            << "sf "
+      //           << Adapt( _Output_GetTimecode.FieldFlag ) << " " 
+      //           << _Output_GetTimecode.Standard            << " " 
+      //           << _Output_GetTimecode.SubFramesPerFrame   << " " 
+      //           << _Output_GetTimecode.UserBits            << std::endl << std::endl;
 
       // Get the latency
-      output_stream << "Latency: " << MyClient.GetLatencyTotal().Total << "s" << std::endl;
+      //output_stream << "Latency: " << MyClient.GetLatencyTotal().Total << "s" << std::endl;
       
       for( unsigned int LatencySampleIndex = 0 ; LatencySampleIndex < MyClient.GetLatencySampleCount().Count ; ++LatencySampleIndex )
       {
         std::string SampleName  = MyClient.GetLatencySampleName( LatencySampleIndex ).Name;
         double      SampleValue = MyClient.GetLatencySampleValue( SampleName ).Value;
 
-        output_stream << "  " << SampleName << " " << SampleValue << "s" << std::endl;
+        //output_stream << "  " << SampleName << " " << SampleValue << "s" << std::endl;
       }
-      output_stream << std::endl;
+      //output_stream << std::endl;
 
       // Count the number of subjects
       unsigned int SubjectCount = MyClient.GetSubjectCount().SubjectCount;
@@ -385,10 +375,10 @@ int main( int argc, char* argv[] )
       //   numSubjects = SubjectCount;
       // }
 
-      output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
+      //output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
       for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount ; ++SubjectIndex )
       {
-        output_stream << "  Subject #" << SubjectIndex << std::endl;
+        //output_stream << "  Subject #" << SubjectIndex << std::endl;
 
         // Get the subject name
         std::string SubjectName = MyClient.GetSubjectName( SubjectIndex ).SubjectName;
@@ -396,7 +386,7 @@ int main( int argc, char* argv[] )
 
         // Get the root segment
         std::string RootSegment = MyClient.GetSubjectRootSegmentName( SubjectName ).SegmentName;
-        output_stream << "    Root Segment: " << RootSegment << std::endl;
+        //output_stream << "    Root Segment: " << RootSegment << std::endl;
 
         // // Count the number of segments
         // unsigned int SegmentCount = MyClient.GetSegmentCount( SubjectName ).SegmentCount;
@@ -407,7 +397,7 @@ int main( int argc, char* argv[] )
 
         //   // Get the segment name
         //   std::string SegmentName = MyClient.GetSegmentName( SubjectName, SegmentIndex ).SegmentName;
-        //   output_stream << "        Name: " << SegmentName << std::endl;
+           //output_stream << "        Name: " << SegmentName << std::endl;
 
         //   // Get the segment parent
         //   std::string SegmentParentName = MyClient.GetSegmentParentName( SubjectName, SegmentName ).SegmentName;
@@ -422,26 +412,31 @@ int main( int argc, char* argv[] )
         //     output_stream << "       " << ChildName << std::endl;
         //   }
 
-          // Get the global segment translation
-          Output_GetSegmentGlobalTranslation _Output_GetSegmentGlobalTranslation = 
-            MyClient.GetSegmentGlobalTranslation( SubjectName, RootSegment );
-          output_stream << "        Global Translation: (" << _Output_GetSegmentGlobalTranslation.Translation[ 0 ]  << ", " 
-                                                       << _Output_GetSegmentGlobalTranslation.Translation[ 1 ]  << ", " 
-                                                       << _Output_GetSegmentGlobalTranslation.Translation[ 2 ]  << ") " 
-                                                       << Adapt( _Output_GetSegmentGlobalTranslation.Occluded ) << std::endl;
+          // Get the local segment translation
+          Output_GetSegmentLocalTranslation _Output_GetSegmentLocalTranslation = 
+            MyClient.GetSegmentLocalTranslation( SubjectName, RootSegment );
+          output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", " 
+                                                       << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", " 
+                                                       << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") " 
+                                                       << Adapt( _Output_GetSegmentLocalTranslation.Occluded ) << std::endl;
 
           
-          // Get the global segment rotation in quaternion co-ordinates
-          Output_GetSegmentGlobalRotationQuaternion _Output_GetSegmentGlobalRotationQuaternion = 
-            MyClient.GetSegmentGlobalRotationQuaternion( SubjectName, RootSegment );
-          output_stream << "        Global Rotation Quaternion: (" << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]     << ", " 
-                                                               << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]     << ", " 
-                                                               << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]     << ", " 
-                                                               << _Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]     << ") " 
-                                                               << Adapt( _Output_GetSegmentGlobalRotationQuaternion.Occluded ) << std::endl;
+          // Get the local segment rotation in quaternion co-ordinates
+          Output_GetSegmentLocalRotationQuaternion _Output_GetSegmentLocalRotationQuaternion = 
+            MyClient.GetSegmentLocalRotationQuaternion( SubjectName, RootSegment );
+          output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", " 
+                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", " 
+                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", " 
+                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") " 
+                                                               << Adapt( _Output_GetSegmentLocalRotationQuaternion.Occluded ) << std::endl;
 
-          
-          // std::vector<sio::message::ptr> vec = msg->get_vector();
+          Output_GetSegmentLocalRotationEulerXYZ _Output_Euler = 
+            MyClient.GetSegmentLocalRotationEulerXYZ(SubjectName, RootSegment);
+
+          output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", " 
+                                                               << _Output_Euler.Rotation[ 1 ]     << ", " 
+                                                               << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
+          // // std::vector<sio::message::ptr> vec = msg->get_vector();
           // vec.clear();
           // vec.push_back(sio::string_message::create(SubjectName));
           // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
@@ -456,53 +451,28 @@ int main( int argc, char* argv[] )
           VRCom::Position* pos = currentSubj.mutable_pos();
           VRCom::Rotation* rot = currentSubj.mutable_rot();
 
-          pos->set_x(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]);
-          pos->set_y(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]);
-          pos->set_z(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]);
+          pos->set_x(_Output_GetSegmentLocalTranslation.Translation[ 0 ]);
+          pos->set_y(_Output_GetSegmentLocalTranslation.Translation[ 1 ]);
+          pos->set_z(_Output_GetSegmentLocalTranslation.Translation[ 2 ]);
 
-          rot->set_x(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]);
-          rot->set_y(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]);
-          rot->set_z(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]);
-          rot->set_w(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]);
+          rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
+          rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
+          rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
+          rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
 
-          msg->SerializeToOstream(&bufstr);
-
-          ws->sendBinary(bufstr.str());
-
-          std::ostringstream().swap(bufstr);
-          bufstr.clear();
-        //}
-
-        // Count the number of markers
-        // unsigned int MarkerCount = MyClient.GetMarkerCount( SubjectName ).MarkerCount;
-        // output_stream << "    Markers (" << MarkerCount << "):" << std::endl;
-        // for( unsigned int MarkerIndex = 0 ; MarkerIndex < MarkerCount ; ++MarkerIndex )
-        // {
-        //   // Get the marker name
-        //   std::string MarkerName = MyClient.GetMarkerName( SubjectName, MarkerIndex ).MarkerName;
-
-        //   // Get the marker parent
-        //   std::string MarkerParentName = MyClient.GetMarkerParentName( SubjectName, MarkerName ).SegmentName;
-
-        //   // Get the global marker translation
-        //   Output_GetMarkerGlobalTranslation _Output_GetMarkerGlobalTranslation =
-        //     MyClient.GetMarkerGlobalTranslation( SubjectName, MarkerName );
-
-        //   output_stream << "      Marker #" << MarkerIndex            << ": "
-        //                                 << MarkerName             << " ("
-        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 0 ]  << ", "
-        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 1 ]  << ", "
-        //                                 << _Output_GetMarkerGlobalTranslation.Translation[ 2 ]  << ") "
-        //                                 << Adapt( _Output_GetMarkerGlobalTranslation.Occluded ) << std::endl;
-        // }
       }
+        msg->SerializeToOstream(&bufstr);
+
+        ws->sendBinary(bufstr.str());
+        ws->poll();
+
+        std::ostringstream().swap(bufstr);
+        bufstr.clear();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
       
       
-    if( EnableMultiCast )
-    {
-      MyClient.StopTransmittingMulticast();
-    }
     MyClient.DisableSegmentData();
     MyClient.DisableMarkerData();
     MyClient.DisableUnlabeledMarkerData();
@@ -520,13 +490,32 @@ int main( int argc, char* argv[] )
   }
 }
 
-// void allocateSubjects(VRCom::Mocap* mocap, int numSubjects) {
-//   mocap->clear_subjects();
-//   for (int i = 0; i < numSubjects; i++) {
-//     VRCom::MocapSubject* subj = mocap->add_subjects();
-//     VRCom::Position* pos = new VRCom::Position();
-//     VRCom::Rotation* rot = new VRCom::Rotation();
-//     subj->set_allocated_rot(rot);
-//     subj->set_allocated_pos(pos);
-//   }
-// }
+void reorderRotation(int axes, float x, float y, float z) {
+  // Vicon does rotation order XYZ
+  // Unity does ZXY
+  // On top of that Unity has a left-handed coordinate system. Vicon is right-handed
+
+  float radx = x/180*PI;
+  float rady = y/180*PI;
+  float radz = z/180*PI;
+  float cosx = cos(radx/2);
+  float cosy = cos(rady/2);
+  float cosz = cos(radz/2);
+  float sinx = sin(radx/2);
+  float siny = sin(rady/2);
+  float sinz = sin(radz/2);
+  float q1[4];
+  float q2[4];
+  float q3[4];
+  float q[4];
+  if (axes == ZUP) {
+    // for ZUP we need to first rotate in Unity Z which is the axis pointing forward
+    // which is X in Vicon ZUP. Then we rotate in Unity X which is the axis pointing right
+    // which is -Y in Vicon ZUP. The we rotate in Unity Y which is the axis pointing up
+    // which is Z in Vicon ZUP.
+    q1[0] = cosx; q1[1] = sinx; q1[2] = 0; q1[3] = 0;
+    q2[0] = cosy; q2[1] = 0; q2[2] = -siny; q2[3] = 0;
+    q3[0] = cosz; q3[1] = 0; q3[2] = 0; q3[3] = sinz;
+  }
+
+}

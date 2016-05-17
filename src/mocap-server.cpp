@@ -142,14 +142,17 @@ const double PI = 2*acos(0.0);
 
 enum axisOrientation {
     YUP,
-    ZUP
+    ZUP,
   };
 
 int main( int argc, char* argv[] )
 {
   // Program options
  
-  axisOrientation axes = ZUP;
+  //Vicon is a right-handed coordinate system with ZUP by default.
+  //The server will output Right-Handed with Y UP (the OpenGL convention)
+  AxisOrientation ViconAxes = ZUP;
+
   std::string HostName = "localhost:801";
   std::string WebsocketAddr = "192.168.2.1:4567";
   int a = 1;
@@ -264,16 +267,14 @@ int main( int argc, char* argv[] )
     // MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPullPreFetch );
     MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ServerPush );
 
-    if (axes == ZUP) {
-      //Set the global up axis
-      MyClient.SetAxisMapping( Direction::Forward,
-                               Direction::Left, 
-                               Direction::Up ); // Z-up
-    } else {
-      MyClient.SetAxisMapping( Direction::Forward, 
-                               Direction::Up, 
-                               Direction::Right ); // Y-up
-    }
+  
+    //Set the coordinate system to the OpenGL system (X right, Y UP, Z Backward
+    //Note: There is something off with the way Blade outputs data. Somehow it needs to start with
+    //its default coordinate system (X Forward, Y Left, Z Up) so that the axis mapping works correctly.
+    MyClient.SetAxisMapping( Direction::Left,
+                             Direction::Up, 
+                             Direction::Backward ); // OpenGL
+   
 
     Output_GetAxisMapping _Output_GetAxisMapping = MyClient.GetAxisMapping();
     std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis ) 
@@ -291,7 +292,6 @@ int main( int argc, char* argv[] )
     // We are assuming that the number and set of subjects won't change.
     // This may not be a great assumption. The alternative is to reallocate 
     // at each frame or check if there are differences at each frame.
-    //allocateSubjects(MyClient, subjects, SubjectCount);
 
 
     size_t FrameRateWindow = 1000; // frames
@@ -436,16 +436,7 @@ int main( int argc, char* argv[] )
           output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", " 
                                                                << _Output_Euler.Rotation[ 1 ]     << ", " 
                                                                << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
-          // // std::vector<sio::message::ptr> vec = msg->get_vector();
-          // vec.clear();
-          // vec.push_back(sio::string_message::create(SubjectName));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 0 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 1 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalTranslation.Translation[ 2 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 0 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 1 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 2 ]));
-          // vec.push_back(sio::double_message::create(_Output_GetSegmentGlobalRotationQuaternion.Rotation[ 3 ]));
+        
 
           VRCom::MocapSubject& currentSubj = subjects[SubjectName];                                                 
           VRCom::Position* pos = currentSubj.mutable_pos();
@@ -461,15 +452,15 @@ int main( int argc, char* argv[] )
           rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
 
       }
-        msg->SerializeToOstream(&bufstr);
+      msg->SerializeToOstream(&bufstr);
 
-        ws->sendBinary(bufstr.str());
-        ws->poll();
+      ws->sendBinary(bufstr.str());
+      ws->poll();
 
-        std::ostringstream().swap(bufstr);
-        bufstr.clear();
+      std::ostringstream().swap(bufstr);
+      bufstr.clear();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+      std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
       
       
@@ -490,32 +481,19 @@ int main( int argc, char* argv[] )
   }
 }
 
-void reorderRotation(int axes, float x, float y, float z) {
-  // Vicon does rotation order XYZ
-  // Unity does ZXY
-  // On top of that Unity has a left-handed coordinate system. Vicon is right-handed
-
-  float radx = x/180*PI;
-  float rady = y/180*PI;
-  float radz = z/180*PI;
-  float cosx = cos(radx/2);
-  float cosy = cos(rady/2);
-  float cosz = cos(radz/2);
-  float sinx = sin(radx/2);
-  float siny = sin(rady/2);
-  float sinz = sin(radz/2);
-  float q1[4];
-  float q2[4];
-  float q3[4];
-  float q[4];
-  if (axes == ZUP) {
-    // for ZUP we need to first rotate in Unity Z which is the axis pointing forward
-    // which is X in Vicon ZUP. Then we rotate in Unity X which is the axis pointing right
-    // which is -Y in Vicon ZUP. The we rotate in Unity Y which is the axis pointing up
-    // which is Z in Vicon ZUP.
-    q1[0] = cosx; q1[1] = sinx; q1[2] = 0; q1[3] = 0;
-    q2[0] = cosy; q2[1] = 0; q2[2] = -siny; q2[3] = 0;
-    q3[0] = cosz; q3[1] = 0; q3[2] = 0; q3[3] = sinz;
+void reorderRotation(int axes, float x, float y, float z, float w, VRCom::Rotation* rot) {
+  // Vicon is a right-handed system with Z UP as default. +X is Forward, +Y to the Left, +Z up.
+  // We want to output in the OpenGL convention which is right-handed, +X to the left, +Y UP, +Z Forward
+  if (axes == YUP) {
+    rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
+    rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
+    rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
+    rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
+  } else {  // ZUP. We need to switch the 
+    rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
+    rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
+    rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
+    rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
   }
 
 }

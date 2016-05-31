@@ -140,7 +140,7 @@ namespace
 
 const double PI = 2*acos(0.0); 
 
-enum axisOrientation {
+enum AxisOrientation {
     YUP,
     ZUP,
   };
@@ -151,10 +151,10 @@ int main( int argc, char* argv[] )
  
   //Vicon is a right-handed coordinate system with ZUP by default.
   //The server will output Right-Handed with Y UP (the OpenGL convention)
-  AxisOrientation ViconAxes = ZUP;
+  AxisOrientation axes = ZUP;
 
   std::string HostName = "localhost:801";
-  std::string WebsocketAddr = "192.168.2.1:4567";
+  std::string WebsocketAddr = "ws:192.168.2.1:4567";
   int a = 1;
   if( argc > 1 )
   {
@@ -271,10 +271,12 @@ int main( int argc, char* argv[] )
     //Set the coordinate system to the OpenGL system (X right, Y UP, Z Backward
     //Note: There is something off with the way Blade outputs data. Somehow it needs to start with
     //its default coordinate system (X Forward, Y Left, Z Up) so that the axis mapping works correctly.
-    MyClient.SetAxisMapping( Direction::Left,
-                             Direction::Up, 
-                             Direction::Backward ); // OpenGL
+    Output_SetAxisMapping _Output_SetAxisMapping = 
+      MyClient.SetAxisMapping( Direction::Right,
+                               Direction::Up, 
+                               Direction::Backward ); // OpenGL
    
+    std::cout << "Axis mapping result: " << _Output_SetAxisMapping.Result << std::endl;
 
     Output_GetAxisMapping _Output_GetAxisMapping = MyClient.GetAxisMapping();
     std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis ) 
@@ -382,7 +384,7 @@ int main( int argc, char* argv[] )
 
         // Get the subject name
         std::string SubjectName = MyClient.GetSubjectName( SubjectIndex ).SubjectName;
-        output_stream << "    Name: " << SubjectName << std::endl;
+        // output_stream << "    Name: " << SubjectName << std::endl;
 
         // Get the root segment
         std::string RootSegment = MyClient.GetSubjectRootSegmentName( SubjectName ).SegmentName;
@@ -412,30 +414,30 @@ int main( int argc, char* argv[] )
         //     output_stream << "       " << ChildName << std::endl;
         //   }
 
-          // Get the local segment translation
+          // Get the Local segment translation
           Output_GetSegmentLocalTranslation _Output_GetSegmentLocalTranslation = 
             MyClient.GetSegmentLocalTranslation( SubjectName, RootSegment );
-          output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", " 
-                                                       << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", " 
-                                                       << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") " 
-                                                       << Adapt( _Output_GetSegmentLocalTranslation.Occluded ) << std::endl;
+          // output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", " 
+          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", " 
+          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") " 
+          //                                              << Adapt( _Output_GetSegmentLocalTranslation.Occluded ) << std::endl;
 
           
-          // Get the local segment rotation in quaternion co-ordinates
+          // Get the Local segment rotation in quaternion co-ordinates
           Output_GetSegmentLocalRotationQuaternion _Output_GetSegmentLocalRotationQuaternion = 
             MyClient.GetSegmentLocalRotationQuaternion( SubjectName, RootSegment );
-          output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", " 
-                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", " 
-                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", " 
-                                                               << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") " 
-                                                               << Adapt( _Output_GetSegmentLocalRotationQuaternion.Occluded ) << std::endl;
+          // output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", " 
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", " 
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", " 
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") " 
+          //                                                      << Adapt( _Output_GetSegmentLocalRotationQuaternion.Occluded ) << std::endl;
 
           Output_GetSegmentLocalRotationEulerXYZ _Output_Euler = 
             MyClient.GetSegmentLocalRotationEulerXYZ(SubjectName, RootSegment);
 
-          output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", " 
-                                                               << _Output_Euler.Rotation[ 1 ]     << ", " 
-                                                               << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
+          // output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", " 
+          //                                                      << _Output_Euler.Rotation[ 1 ]     << ", " 
+          //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
         
 
           VRCom::MocapSubject& currentSubj = subjects[SubjectName];                                                 
@@ -479,21 +481,4 @@ int main( int argc, char* argv[] )
 
     ws->close();
   }
-}
-
-void reorderRotation(int axes, float x, float y, float z, float w, VRCom::Rotation* rot) {
-  // Vicon is a right-handed system with Z UP as default. +X is Forward, +Y to the Left, +Z up.
-  // We want to output in the OpenGL convention which is right-handed, +X to the left, +Y UP, +Z Forward
-  if (axes == YUP) {
-    rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
-    rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
-    rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
-    rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
-  } else {  // ZUP. We need to switch the 
-    rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
-    rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
-    rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
-    rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
-  }
-
 }

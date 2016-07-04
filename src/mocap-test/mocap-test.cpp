@@ -7,10 +7,14 @@
 #include <sstream>
 #include <cassert>
 
-int main() {
+int main(int argc, char* argv[]) {
 	
+  std::string WebsocketAddr = "ws://192.168.2.1:4567";
+  if (argc > 1)
+    WebsocketAddr = argv[1];
+
   using easywsclient::WebSocket;
-  WebSocket::pointer ws = WebSocket::from_url("ws://192.168.2.1:4567");
+  WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
   assert(ws);
 
 	std::ostringstream bufstr;

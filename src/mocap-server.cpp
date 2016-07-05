@@ -154,7 +154,7 @@ int main( int argc, char* argv[] )
   AxisOrientation axes = ZUP;
 
   std::string HostName = "localhost:801";
-  std::string WebsocketAddr = "ws:192.168.2.1:4567";
+  std::string WebsocketAddr = "ws://192.168.2.1:4567";
   int a = 1;
   if( argc > 1 )
   {
@@ -233,7 +233,7 @@ int main( int argc, char* argv[] )
   #ifdef WIN32
       Sleep( 200 );
   #else
-      sleep(1);
+      std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   #endif
     }
 
@@ -314,7 +314,7 @@ int main( int argc, char* argv[] )
         #ifdef WIN32
           Sleep( 200 );
         #else
-          sleep(1);
+          std::this_thread::sleep_for(std::chrono::milliseconds(200));;
         #endif
 
         //output_stream << ".";

@@ -1,2 +1,2 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc /Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a  CMakeFiles/easywsclient.dir/easywsclient.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib /Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a  CMakeFiles/easywsclient.dir/easywsclient.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.pdb"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a"
+  "/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.pdb"
+  "/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a"
 )
 
 # Per-language clean rules from dependency scanning.

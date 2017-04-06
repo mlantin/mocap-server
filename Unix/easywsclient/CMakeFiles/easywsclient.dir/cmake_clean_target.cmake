@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/libeasywsclient.a"
+  "/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a"
 )

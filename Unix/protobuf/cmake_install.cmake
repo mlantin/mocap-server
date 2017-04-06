@@ -1,4 +1,4 @@
-# Install script for directory: /Users/mlantin/Documents/Research/VR/mocap-server/src/protobuf
+# Install script for directory: /Users/ralek/ecuad/mocap-server/src/protobuf
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

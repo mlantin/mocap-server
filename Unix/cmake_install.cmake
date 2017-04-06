@@ -1,4 +1,4 @@
-# Install script for directory: /Users/mlantin/Documents/Research/VR/mocap-server/src
+# Install script for directory: /Users/ralek/ecuad/mocap-server/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,9 +29,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/easywsclient/cmake_install.cmake")
-  include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/protobuf/cmake_install.cmake")
-  include("/Users/mlantin/Documents/Research/VR/mocap-server/Unix/mocap-test/cmake_install.cmake")
+  include("/Users/ralek/ecuad/mocap-server/Unix/easywsclient/cmake_install.cmake")
+  include("/Users/ralek/ecuad/mocap-server/Unix/smallUDPClient/cmake_install.cmake")
+  include("/Users/ralek/ecuad/mocap-server/Unix/protobuf/cmake_install.cmake")
+  include("/Users/ralek/ecuad/mocap-server/Unix/flatbuf/cmake_install.cmake")
+  include("/Users/ralek/ecuad/mocap-server/Unix/mocap-test/cmake_install.cmake")
 
 endif()
 
@@ -43,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/mlantin/Documents/Research/VR/mocap-server/Unix/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/ralek/ecuad/mocap-server/Unix/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

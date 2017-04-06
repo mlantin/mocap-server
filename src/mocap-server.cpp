@@ -1,5 +1,7 @@
 #include "Vicon/Client.h"
 #include "easywsclient.hpp"
+#include "smallUDPClient.hpp"
+#include "holojam_generated.h"
 #include "VRCom.pb.h"
 #include <iostream>
 #include <fstream>
@@ -14,7 +16,7 @@
 
 using namespace ViconDataStreamSDK::CPP;
 
-#define output_stream if(!LogFile.empty()) ; else std::cout 
+#define output_stream if(!LogFile.empty()) ; else std::cout
 
 namespace
 {
@@ -138,7 +140,7 @@ namespace
   }
 }
 
-const double PI = 2*acos(0.0); 
+const double PI = 2*acos(0.0);
 
 enum AxisOrientation {
     YUP,
@@ -148,13 +150,13 @@ enum AxisOrientation {
 int main( int argc, char* argv[] )
 {
   // Program options
- 
+
   //Vicon is a right-handed coordinate system with ZUP by default.
   //The server will output Right-Handed with Y UP (the OpenGL convention)
   AxisOrientation axes = ZUP;
 
   std::string HostName = "localhost:801";
-  std::string WebsocketAddr = "ws://192.168.2.1:4567";
+  std::string WebsocketAddr = "ws://localhost:4567";
   int a = 1;
   if( argc > 1 )
   {
@@ -167,7 +169,7 @@ int main( int argc, char* argv[] )
   }
 
   std::string LogFile = "";
-  
+
   for(; a < argc; ++a)
   {
     std::string arg = argv[a];
@@ -238,6 +240,7 @@ int main( int argc, char* argv[] )
     }
 
     // Connect to vr websocket server
+    // MIRKOS's TODO: TO BE REPLACED WITH UDP CLIENT CONNECTING TO HOLOJAM-NODE
 
     using easywsclient::WebSocket;
     WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
@@ -247,7 +250,7 @@ int main( int argc, char* argv[] )
     VRCom::Mocap* mocap = new VRCom::Mocap();
     msg->set_allocated_mocap(mocap);
     auto& subjects = *mocap->mutable_subjects();
-    
+
     int numSubjects = 0;
 
     std::ostringstream bufstr;
@@ -267,32 +270,32 @@ int main( int argc, char* argv[] )
     // MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPullPreFetch );
     MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ServerPush );
 
-  
+
     //Set the coordinate system to the OpenGL system (X right, Y UP, Z Backward
     //Note: There is something off with the way Blade outputs data. Somehow it needs to start with
     //its default coordinate system (X Forward, Y Left, Z Up) so that the axis mapping works correctly.
-    Output_SetAxisMapping _Output_SetAxisMapping = 
+    Output_SetAxisMapping _Output_SetAxisMapping =
       MyClient.SetAxisMapping( Direction::Right,
-                               Direction::Up, 
+                               Direction::Up,
                                Direction::Backward ); // OpenGL
-   
+
     std::cout << "Axis mapping result: " << _Output_SetAxisMapping.Result << std::endl;
 
     Output_GetAxisMapping _Output_GetAxisMapping = MyClient.GetAxisMapping();
-    std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis ) 
-                           << " Y-" << Adapt( _Output_GetAxisMapping.YAxis ) 
+    std::cout << "Axis Mapping: X-" << Adapt( _Output_GetAxisMapping.XAxis )
+                           << " Y-" << Adapt( _Output_GetAxisMapping.YAxis )
                            << " Z-" << Adapt( _Output_GetAxisMapping.ZAxis ) << std::endl;
 
     // Discover the version number
     Output_GetVersion _Output_GetVersion = MyClient.GetVersion();
-    std::cout << "Version: " << _Output_GetVersion.Major << "." 
-                             << _Output_GetVersion.Minor << "." 
+    std::cout << "Version: " << _Output_GetVersion.Major << "."
+                             << _Output_GetVersion.Minor << "."
                              << _Output_GetVersion.Point << std::endl;
 
 
     // get the number of subjects and allocate the map.
     // We are assuming that the number and set of subjects won't change.
-    // This may not be a great assumption. The alternative is to reallocate 
+    // This may not be a great assumption. The alternative is to reallocate
     // at each frame or check if there are differences at each frame.
 
 
@@ -349,18 +352,18 @@ int main( int argc, char* argv[] )
 
       // output_stream << "Timecode: "
       //           << _Output_GetTimecode.Hours               << "h "
-      //           << _Output_GetTimecode.Minutes             << "m " 
+      //           << _Output_GetTimecode.Minutes             << "m "
       //           << _Output_GetTimecode.Seconds             << "s "
       //           << _Output_GetTimecode.Frames              << "f "
       //           << _Output_GetTimecode.SubFrame            << "sf "
-      //           << Adapt( _Output_GetTimecode.FieldFlag ) << " " 
-      //           << _Output_GetTimecode.Standard            << " " 
-      //           << _Output_GetTimecode.SubFramesPerFrame   << " " 
+      //           << Adapt( _Output_GetTimecode.FieldFlag ) << " "
+      //           << _Output_GetTimecode.Standard            << " "
+      //           << _Output_GetTimecode.SubFramesPerFrame   << " "
       //           << _Output_GetTimecode.UserBits            << std::endl << std::endl;
 
       // Get the latency
-      //output_stream << "Latency: " << MyClient.GetLatencyTotal().Total << "s" << std::endl;
-      
+  //output_stream << "Latency: " << MyClient.GetLatencyTotal().Total << "s" << std::endl;
+
       for( unsigned int LatencySampleIndex = 0 ; LatencySampleIndex < MyClient.GetLatencySampleCount().Count ; ++LatencySampleIndex )
       {
         std::string SampleName  = MyClient.GetLatencySampleName( LatencySampleIndex ).Name;
@@ -415,32 +418,32 @@ int main( int argc, char* argv[] )
         //   }
 
           // Get the Local segment translation
-          Output_GetSegmentLocalTranslation _Output_GetSegmentLocalTranslation = 
+          Output_GetSegmentLocalTranslation _Output_GetSegmentLocalTranslation =
             MyClient.GetSegmentLocalTranslation( SubjectName, RootSegment );
-          // output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", " 
-          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", " 
-          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") " 
+          // output_stream << "        Local Translation: (" << _Output_GetSegmentLocalTranslation.Translation[ 0 ]  << ", "
+          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 1 ]  << ", "
+          //                                              << _Output_GetSegmentLocalTranslation.Translation[ 2 ]  << ") "
           //                                              << Adapt( _Output_GetSegmentLocalTranslation.Occluded ) << std::endl;
 
-          
+
           // Get the Local segment rotation in quaternion co-ordinates
-          Output_GetSegmentLocalRotationQuaternion _Output_GetSegmentLocalRotationQuaternion = 
+          Output_GetSegmentLocalRotationQuaternion _Output_GetSegmentLocalRotationQuaternion =
             MyClient.GetSegmentLocalRotationQuaternion( SubjectName, RootSegment );
-          // output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", " 
-          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", " 
-          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", " 
-          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") " 
+          // output_stream << "        Local Rotation Quaternion: (" << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]     << ", "
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]     << ", "
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]     << ", "
+          //                                                      << _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]     << ") "
           //                                                      << Adapt( _Output_GetSegmentLocalRotationQuaternion.Occluded ) << std::endl;
 
-          Output_GetSegmentLocalRotationEulerXYZ _Output_Euler = 
+          Output_GetSegmentLocalRotationEulerXYZ _Output_Euler =
             MyClient.GetSegmentLocalRotationEulerXYZ(SubjectName, RootSegment);
 
-          // output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", " 
-          //                                                      << _Output_Euler.Rotation[ 1 ]     << ", " 
+          // output_stream << "        Local Rotation Euler: (" << _Output_Euler.Rotation[ 0 ]     << ", "
+          //                                                      << _Output_Euler.Rotation[ 1 ]     << ", "
           //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
-        
 
-          VRCom::MocapSubject& currentSubj = subjects[SubjectName];                                                 
+
+          VRCom::MocapSubject& currentSubj = subjects[SubjectName];
           VRCom::Position* pos = currentSubj.mutable_pos();
           VRCom::Rotation* rot = currentSubj.mutable_rot();
 
@@ -464,8 +467,8 @@ int main( int argc, char* argv[] )
 
       std::this_thread::sleep_for(std::chrono::milliseconds(15));
     }
-      
-      
+
+
     MyClient.DisableSegmentData();
     MyClient.DisableMarkerData();
     MyClient.DisableUnlabeledMarkerData();

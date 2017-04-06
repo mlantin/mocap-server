@@ -1,0 +1,38 @@
+namespace Holojam.Protocol;
+
+enum NuggetType : byte { UPDATE, EVENT }
+
+// Message (update or event)
+table Nugget {
+   scope : string; // Namespace
+   origin : string; // Source
+
+   type : NuggetType = UPDATE;
+   flakes : [Flake] (required); // Data array
+}
+
+table Flake { // Data container
+   label : string (required);
+
+   // Optional data
+
+   vector3s : [Vector3];
+   vector4s : [Vector4];
+
+   floats : [float];
+   ints : [int];
+   bytes : [ubyte];
+
+   text : string;
+}
+
+struct Vector3 { // XYZ
+   x : float; y : float;
+   z : float;
+}
+struct Vector4 { // XYZW
+   x : float; y : float;
+   z : float; w : float;
+}
+
+root_type Nugget;

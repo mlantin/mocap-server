@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/libVRCom.pdb"
-  "/Users/mlantin/Documents/Research/VR/mocap-server/bin/libVRCom.a"
+  "/Users/ralek/ecuad/mocap-server/bin/libVRCom.pdb"
+  "/Users/ralek/ecuad/mocap-server/bin/libVRCom.a"
 )
 
 # Per-language clean rules from dependency scanning.

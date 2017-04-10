@@ -6,31 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/Users/ralek/ecuad/mocap-server/src/../lib/Vicon/Client.h
+/Users/ralek/mocap-server/src/../lib/Vicon/Client.h
 string
 -
 
-/Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.hpp
+/Users/ralek/mocap-server/src/easywsclient/easywsclient.hpp
 string
 -
 vector
 -
 
-/Users/ralek/ecuad/mocap-server/src/flatbuf/holojam_generated.h
+/Users/ralek/mocap-server/src/flatbuf/holojam_generated.h
 flatbuffers/flatbuffers.h
 -
 
-/Users/ralek/ecuad/mocap-server/src/mocap-server.cpp
+/Users/ralek/mocap-server/src/mocap-server.cpp
 Vicon/Client.h
-/Users/ralek/ecuad/mocap-server/src/Vicon/Client.h
+/Users/ralek/mocap-server/src/Vicon/Client.h
 easywsclient.hpp
-/Users/ralek/ecuad/mocap-server/src/easywsclient.hpp
+/Users/ralek/mocap-server/src/easywsclient.hpp
 smallUDPClient.hpp
-/Users/ralek/ecuad/mocap-server/src/smallUDPClient.hpp
+/Users/ralek/mocap-server/src/smallUDPClient.hpp
 holojam_generated.h
-/Users/ralek/ecuad/mocap-server/src/holojam_generated.h
+/Users/ralek/mocap-server/src/holojam_generated.h
 VRCom.pb.h
-/Users/ralek/ecuad/mocap-server/src/VRCom.pb.h
+/Users/ralek/mocap-server/src/VRCom.pb.h
 iostream
 -
 fstream
@@ -52,7 +52,7 @@ thread
 math.h
 -
 
-/Users/ralek/ecuad/mocap-server/src/protobuf/VRCom.pb.h
+/Users/ralek/mocap-server/src/protobuf/VRCom.pb.h
 string
 -
 google/protobuf/stubs/common.h
@@ -78,7 +78,7 @@ google/protobuf/map_field_inl.h
 google/protobuf/unknown_field_set.h
 -
 
-/Users/ralek/ecuad/mocap-server/src/smallUDPClient/smallUDPClient.hpp
+/Users/ralek/mocap-server/src/smallUDPClient/smallUDPClient.hpp
 iostream
 -
 boost/array.hpp

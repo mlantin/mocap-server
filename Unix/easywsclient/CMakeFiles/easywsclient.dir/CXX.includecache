@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp
+/Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp
 fcntl.h
 -
 WinSock2.h
@@ -54,9 +54,9 @@ vector
 string
 -
 easywsclient.hpp
-/Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.hpp
+/Users/ralek/mocap-server/src/easywsclient/easywsclient.hpp
 
-/Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.hpp
+/Users/ralek/mocap-server/src/easywsclient/easywsclient.hpp
 string
 -
 vector

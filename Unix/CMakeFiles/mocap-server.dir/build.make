@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.7.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ralek/ecuad/mocap-server/src
+CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/ecuad/mocap-server/Unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 # Include any dependencies generated for this target.
 include CMakeFiles/mocap-server.dir/depend.make
@@ -58,17 +58,17 @@ include CMakeFiles/mocap-server.dir/progress.make
 include CMakeFiles/mocap-server.dir/flags.make
 
 CMakeFiles/mocap-server.dir/mocap-server.cpp.o: CMakeFiles/mocap-server.dir/flags.make
-CMakeFiles/mocap-server.dir/mocap-server.cpp.o: /Users/ralek/ecuad/mocap-server/src/mocap-server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mocap-server.dir/mocap-server.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mocap-server.dir/mocap-server.cpp.o -c /Users/ralek/ecuad/mocap-server/src/mocap-server.cpp
+CMakeFiles/mocap-server.dir/mocap-server.cpp.o: /Users/ralek/mocap-server/src/mocap-server.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/mocap-server.dir/mocap-server.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mocap-server.dir/mocap-server.cpp.o -c /Users/ralek/mocap-server/src/mocap-server.cpp
 
 CMakeFiles/mocap-server.dir/mocap-server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mocap-server.dir/mocap-server.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/ecuad/mocap-server/src/mocap-server.cpp > CMakeFiles/mocap-server.dir/mocap-server.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/mocap-server/src/mocap-server.cpp > CMakeFiles/mocap-server.dir/mocap-server.cpp.i
 
 CMakeFiles/mocap-server.dir/mocap-server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mocap-server.dir/mocap-server.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/ecuad/mocap-server/src/mocap-server.cpp -o CMakeFiles/mocap-server.dir/mocap-server.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/mocap-server/src/mocap-server.cpp -o CMakeFiles/mocap-server.dir/mocap-server.cpp.s
 
 CMakeFiles/mocap-server.dir/mocap-server.cpp.o.requires:
 
@@ -88,22 +88,22 @@ mocap__server_OBJECTS = \
 # External object files for target mocap-server
 mocap__server_EXTERNAL_OBJECTS =
 
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/mocap-server.cpp.o
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/build.make
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /Users/ralek/ecuad/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /Users/ralek/ecuad/mocap-server/bin/libflatbuf.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /Users/ralek/ecuad/mocap-server/bin/libsmallUDPClient.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /usr/local/lib/libprotobuf.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /usr/local/cellar/flatbuffers/1.6.0/lib/libflatbuffers.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /usr/local/lib/libboost_system-mt.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: /Users/ralek/ecuad/mocap-server/bin/libVRCom.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/ralek/ecuad/mocap-server/bin/mocap-server"
+/Users/ralek/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/mocap-server.cpp.o
+/Users/ralek/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/build.make
+/Users/ralek/mocap-server/bin/mocap-server: /Users/ralek/mocap-server/src/../lib/Vicon_DataStream_SDK_1.3.0.57137h_MAC/libViconDataStreamSDK_CPP.dylib
+/Users/ralek/mocap-server/bin/mocap-server: /Users/ralek/mocap-server/bin/libflatbuf.a
+/Users/ralek/mocap-server/bin/mocap-server: /Users/ralek/mocap-server/bin/libsmallUDPClient.a
+/Users/ralek/mocap-server/bin/mocap-server: /Users/ralek/mocap-server/bin/libeasywsclient.a
+/Users/ralek/mocap-server/bin/mocap-server: /usr/local/lib/libprotobuf.a
+/Users/ralek/mocap-server/bin/mocap-server: /usr/local/cellar/flatbuffers/1.6.0/lib/libflatbuffers.a
+/Users/ralek/mocap-server/bin/mocap-server: /usr/local/lib/libboost_system-mt.a
+/Users/ralek/mocap-server/bin/mocap-server: /Users/ralek/mocap-server/bin/libVRCom.a
+/Users/ralek/mocap-server/bin/mocap-server: CMakeFiles/mocap-server.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/ralek/mocap-server/bin/mocap-server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mocap-server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/mocap-server.dir/build: /Users/ralek/ecuad/mocap-server/bin/mocap-server
+CMakeFiles/mocap-server.dir/build: /Users/ralek/mocap-server/bin/mocap-server
 
 .PHONY : CMakeFiles/mocap-server.dir/build
 
@@ -116,6 +116,6 @@ CMakeFiles/mocap-server.dir/clean:
 .PHONY : CMakeFiles/mocap-server.dir/clean
 
 CMakeFiles/mocap-server.dir/depend:
-	cd /Users/ralek/ecuad/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/ecuad/mocap-server/src /Users/ralek/ecuad/mocap-server/src /Users/ralek/ecuad/mocap-server/Unix /Users/ralek/ecuad/mocap-server/Unix /Users/ralek/ecuad/mocap-server/Unix/CMakeFiles/mocap-server.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/mocap-server/src /Users/ralek/mocap-server/src /Users/ralek/mocap-server/Unix /Users/ralek/mocap-server/Unix /Users/ralek/mocap-server/Unix/CMakeFiles/mocap-server.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/mocap-server.dir/depend
 

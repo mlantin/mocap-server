@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.7.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ralek/ecuad/mocap-server/src
+CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/ecuad/mocap-server/Unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 # Include any dependencies generated for this target.
 include protobuf/CMakeFiles/VRCom.dir/depend.make
@@ -58,17 +58,17 @@ include protobuf/CMakeFiles/VRCom.dir/progress.make
 include protobuf/CMakeFiles/VRCom.dir/flags.make
 
 protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o: protobuf/CMakeFiles/VRCom.dir/flags.make
-protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o: /Users/ralek/ecuad/mocap-server/src/protobuf/VRCom.pb.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VRCom.dir/VRCom.pb.cc.o -c /Users/ralek/ecuad/mocap-server/src/protobuf/VRCom.pb.cc
+protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o: /Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
+	cd /Users/ralek/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/VRCom.dir/VRCom.pb.cc.o -c /Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc
 
 protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/VRCom.dir/VRCom.pb.cc.i"
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/ecuad/mocap-server/src/protobuf/VRCom.pb.cc > CMakeFiles/VRCom.dir/VRCom.pb.cc.i
+	cd /Users/ralek/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc > CMakeFiles/VRCom.dir/VRCom.pb.cc.i
 
 protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/VRCom.dir/VRCom.pb.cc.s"
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/ecuad/mocap-server/src/protobuf/VRCom.pb.cc -o CMakeFiles/VRCom.dir/VRCom.pb.cc.s
+	cd /Users/ralek/mocap-server/Unix/protobuf && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc -o CMakeFiles/VRCom.dir/VRCom.pb.cc.s
 
 protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o.requires:
 
@@ -88,15 +88,15 @@ VRCom_OBJECTS = \
 # External object files for target VRCom
 VRCom_EXTERNAL_OBJECTS =
 
-/Users/ralek/ecuad/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o
-/Users/ralek/ecuad/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/build.make
-/Users/ralek/ecuad/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library /Users/ralek/ecuad/mocap-server/bin/libVRCom.a"
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -P CMakeFiles/VRCom.dir/cmake_clean_target.cmake
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VRCom.dir/link.txt --verbose=$(VERBOSE)
+/Users/ralek/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o
+/Users/ralek/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/build.make
+/Users/ralek/mocap-server/bin/libVRCom.a: protobuf/CMakeFiles/VRCom.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library /Users/ralek/mocap-server/bin/libVRCom.a"
+	cd /Users/ralek/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -P CMakeFiles/VRCom.dir/cmake_clean_target.cmake
+	cd /Users/ralek/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VRCom.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-protobuf/CMakeFiles/VRCom.dir/build: /Users/ralek/ecuad/mocap-server/bin/libVRCom.a
+protobuf/CMakeFiles/VRCom.dir/build: /Users/ralek/mocap-server/bin/libVRCom.a
 
 .PHONY : protobuf/CMakeFiles/VRCom.dir/build
 
@@ -105,10 +105,10 @@ protobuf/CMakeFiles/VRCom.dir/requires: protobuf/CMakeFiles/VRCom.dir/VRCom.pb.c
 .PHONY : protobuf/CMakeFiles/VRCom.dir/requires
 
 protobuf/CMakeFiles/VRCom.dir/clean:
-	cd /Users/ralek/ecuad/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -P CMakeFiles/VRCom.dir/cmake_clean.cmake
+	cd /Users/ralek/mocap-server/Unix/protobuf && $(CMAKE_COMMAND) -P CMakeFiles/VRCom.dir/cmake_clean.cmake
 .PHONY : protobuf/CMakeFiles/VRCom.dir/clean
 
 protobuf/CMakeFiles/VRCom.dir/depend:
-	cd /Users/ralek/ecuad/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/ecuad/mocap-server/src /Users/ralek/ecuad/mocap-server/src/protobuf /Users/ralek/ecuad/mocap-server/Unix /Users/ralek/ecuad/mocap-server/Unix/protobuf /Users/ralek/ecuad/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/mocap-server/src /Users/ralek/mocap-server/src/protobuf /Users/ralek/mocap-server/Unix /Users/ralek/mocap-server/Unix/protobuf /Users/ralek/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : protobuf/CMakeFiles/VRCom.dir/depend
 

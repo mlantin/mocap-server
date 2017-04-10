@@ -26,7 +26,11 @@ public:
     udp_socket_.close();
   }
 
-  void sendBinary(const string& s) {
+  void sendBinaryBuffer(uint8_t* buf, int size) {
+    udp_socket_.send_to(boost::asio::buffer(buf, size), client_endpoint_);
+  }
+
+  void sendBinaryString(const string& s) {
     udp_socket_.send_to(boost::asio::buffer(s, s.size()), client_endpoint_);
   }
 

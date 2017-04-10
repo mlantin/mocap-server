@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.7.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ralek/ecuad/mocap-server/src
+CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/ecuad/mocap-server/Unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 # Include any dependencies generated for this target.
 include easywsclient/CMakeFiles/easywsclient.dir/depend.make
@@ -58,17 +58,17 @@ include easywsclient/CMakeFiles/easywsclient.dir/progress.make
 include easywsclient/CMakeFiles/easywsclient.dir/flags.make
 
 easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o: easywsclient/CMakeFiles/easywsclient.dir/flags.make
-easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o: /Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/easywsclient.dir/easywsclient.cpp.o -c /Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp
+easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o: /Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
+	cd /Users/ralek/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/easywsclient.dir/easywsclient.cpp.o -c /Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp
 
 easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/easywsclient.dir/easywsclient.cpp.i"
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp > CMakeFiles/easywsclient.dir/easywsclient.cpp.i
+	cd /Users/ralek/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp > CMakeFiles/easywsclient.dir/easywsclient.cpp.i
 
 easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/easywsclient.dir/easywsclient.cpp.s"
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp -o CMakeFiles/easywsclient.dir/easywsclient.cpp.s
+	cd /Users/ralek/mocap-server/Unix/easywsclient && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp -o CMakeFiles/easywsclient.dir/easywsclient.cpp.s
 
 easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o.requires:
 
@@ -88,15 +88,15 @@ easywsclient_OBJECTS = \
 # External object files for target easywsclient
 easywsclient_EXTERNAL_OBJECTS =
 
-/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o
-/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/build.make
-/Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a"
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -P CMakeFiles/easywsclient.dir/cmake_clean_target.cmake
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/easywsclient.dir/link.txt --verbose=$(VERBOSE)
+/Users/ralek/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o
+/Users/ralek/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/build.make
+/Users/ralek/mocap-server/bin/libeasywsclient.a: easywsclient/CMakeFiles/easywsclient.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library /Users/ralek/mocap-server/bin/libeasywsclient.a"
+	cd /Users/ralek/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -P CMakeFiles/easywsclient.dir/cmake_clean_target.cmake
+	cd /Users/ralek/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/easywsclient.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-easywsclient/CMakeFiles/easywsclient.dir/build: /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a
+easywsclient/CMakeFiles/easywsclient.dir/build: /Users/ralek/mocap-server/bin/libeasywsclient.a
 
 .PHONY : easywsclient/CMakeFiles/easywsclient.dir/build
 
@@ -105,10 +105,10 @@ easywsclient/CMakeFiles/easywsclient.dir/requires: easywsclient/CMakeFiles/easyw
 .PHONY : easywsclient/CMakeFiles/easywsclient.dir/requires
 
 easywsclient/CMakeFiles/easywsclient.dir/clean:
-	cd /Users/ralek/ecuad/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -P CMakeFiles/easywsclient.dir/cmake_clean.cmake
+	cd /Users/ralek/mocap-server/Unix/easywsclient && $(CMAKE_COMMAND) -P CMakeFiles/easywsclient.dir/cmake_clean.cmake
 .PHONY : easywsclient/CMakeFiles/easywsclient.dir/clean
 
 easywsclient/CMakeFiles/easywsclient.dir/depend:
-	cd /Users/ralek/ecuad/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/ecuad/mocap-server/src /Users/ralek/ecuad/mocap-server/src/easywsclient /Users/ralek/ecuad/mocap-server/Unix /Users/ralek/ecuad/mocap-server/Unix/easywsclient /Users/ralek/ecuad/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/mocap-server/src /Users/ralek/mocap-server/src/easywsclient /Users/ralek/mocap-server/Unix /Users/ralek/mocap-server/Unix/easywsclient /Users/ralek/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : easywsclient/CMakeFiles/easywsclient.dir/depend
 

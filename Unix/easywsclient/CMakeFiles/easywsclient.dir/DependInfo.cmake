@@ -4,18 +4,18 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/ralek/ecuad/mocap-server/src/easywsclient/easywsclient.cpp" "/Users/ralek/ecuad/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
+  "/Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp" "/Users/ralek/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/Users/ralek/ecuad/mocap-server/src"
-  "/Users/ralek/ecuad/mocap-server/src/../lib"
+  "/Users/ralek/mocap-server/src"
+  "/Users/ralek/mocap-server/src/../lib"
   "/usr/local/opt/protobuf/include"
   "/usr/local/Cellar/flatbuffers/1.6.0/include"
   "/usr/local/opt/boost/include"
-  "/Users/ralek/ecuad/mocap-server/src/easywsclient"
+  "/Users/ralek/mocap-server/src/easywsclient"
   )
 
 # Targets to which this target links.

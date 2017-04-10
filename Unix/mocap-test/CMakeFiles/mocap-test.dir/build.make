@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.7.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ralek/ecuad/mocap-server/src
+CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/ecuad/mocap-server/Unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 # Include any dependencies generated for this target.
 include mocap-test/CMakeFiles/mocap-test.dir/depend.make
@@ -58,17 +58,17 @@ include mocap-test/CMakeFiles/mocap-test.dir/progress.make
 include mocap-test/CMakeFiles/mocap-test.dir/flags.make
 
 mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o: mocap-test/CMakeFiles/mocap-test.dir/flags.make
-mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o: /Users/ralek/ecuad/mocap-server/src/mocap-test/mocap-test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o"
-	cd /Users/ralek/ecuad/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mocap-test.dir/mocap-test.cpp.o -c /Users/ralek/ecuad/mocap-server/src/mocap-test/mocap-test.cpp
+mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o: /Users/ralek/mocap-server/src/mocap-test/mocap-test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o"
+	cd /Users/ralek/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mocap-test.dir/mocap-test.cpp.o -c /Users/ralek/mocap-server/src/mocap-test/mocap-test.cpp
 
 mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mocap-test.dir/mocap-test.cpp.i"
-	cd /Users/ralek/ecuad/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/ecuad/mocap-server/src/mocap-test/mocap-test.cpp > CMakeFiles/mocap-test.dir/mocap-test.cpp.i
+	cd /Users/ralek/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ralek/mocap-server/src/mocap-test/mocap-test.cpp > CMakeFiles/mocap-test.dir/mocap-test.cpp.i
 
 mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mocap-test.dir/mocap-test.cpp.s"
-	cd /Users/ralek/ecuad/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/ecuad/mocap-server/src/mocap-test/mocap-test.cpp -o CMakeFiles/mocap-test.dir/mocap-test.cpp.s
+	cd /Users/ralek/mocap-server/Unix/mocap-test && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ralek/mocap-server/src/mocap-test/mocap-test.cpp -o CMakeFiles/mocap-test.dir/mocap-test.cpp.s
 
 mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o.requires:
 
@@ -88,21 +88,21 @@ mocap__test_OBJECTS = \
 # External object files for target mocap-test
 mocap__test_EXTERNAL_OBJECTS =
 
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/build.make
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /Users/ralek/ecuad/mocap-server/bin/libflatbuf.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /Users/ralek/ecuad/mocap-server/bin/libsmallUDPClient.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /Users/ralek/ecuad/mocap-server/bin/libeasywsclient.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /usr/local/cellar/flatbuffers/1.6.0/lib/libflatbuffers.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /usr/local/lib/libprotobuf.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /usr/local/lib/libboost_system-mt.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: /Users/ralek/ecuad/mocap-server/bin/libVRCom.a
-/Users/ralek/ecuad/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/ecuad/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/ralek/ecuad/mocap-server/bin/mocap-test"
-	cd /Users/ralek/ecuad/mocap-server/Unix/mocap-test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mocap-test.dir/link.txt --verbose=$(VERBOSE)
+/Users/ralek/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/mocap-test.cpp.o
+/Users/ralek/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/build.make
+/Users/ralek/mocap-server/bin/mocap-test: /Users/ralek/mocap-server/bin/libflatbuf.a
+/Users/ralek/mocap-server/bin/mocap-test: /Users/ralek/mocap-server/bin/libsmallUDPClient.a
+/Users/ralek/mocap-server/bin/mocap-test: /Users/ralek/mocap-server/bin/libeasywsclient.a
+/Users/ralek/mocap-server/bin/mocap-test: /usr/local/cellar/flatbuffers/1.6.0/lib/libflatbuffers.a
+/Users/ralek/mocap-server/bin/mocap-test: /usr/local/lib/libprotobuf.a
+/Users/ralek/mocap-server/bin/mocap-test: /usr/local/lib/libboost_system-mt.a
+/Users/ralek/mocap-server/bin/mocap-test: /Users/ralek/mocap-server/bin/libVRCom.a
+/Users/ralek/mocap-server/bin/mocap-test: mocap-test/CMakeFiles/mocap-test.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ralek/mocap-server/Unix/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /Users/ralek/mocap-server/bin/mocap-test"
+	cd /Users/ralek/mocap-server/Unix/mocap-test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mocap-test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-mocap-test/CMakeFiles/mocap-test.dir/build: /Users/ralek/ecuad/mocap-server/bin/mocap-test
+mocap-test/CMakeFiles/mocap-test.dir/build: /Users/ralek/mocap-server/bin/mocap-test
 
 .PHONY : mocap-test/CMakeFiles/mocap-test.dir/build
 
@@ -111,10 +111,10 @@ mocap-test/CMakeFiles/mocap-test.dir/requires: mocap-test/CMakeFiles/mocap-test.
 .PHONY : mocap-test/CMakeFiles/mocap-test.dir/requires
 
 mocap-test/CMakeFiles/mocap-test.dir/clean:
-	cd /Users/ralek/ecuad/mocap-server/Unix/mocap-test && $(CMAKE_COMMAND) -P CMakeFiles/mocap-test.dir/cmake_clean.cmake
+	cd /Users/ralek/mocap-server/Unix/mocap-test && $(CMAKE_COMMAND) -P CMakeFiles/mocap-test.dir/cmake_clean.cmake
 .PHONY : mocap-test/CMakeFiles/mocap-test.dir/clean
 
 mocap-test/CMakeFiles/mocap-test.dir/depend:
-	cd /Users/ralek/ecuad/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/ecuad/mocap-server/src /Users/ralek/ecuad/mocap-server/src/mocap-test /Users/ralek/ecuad/mocap-server/Unix /Users/ralek/ecuad/mocap-server/Unix/mocap-test /Users/ralek/ecuad/mocap-server/Unix/mocap-test/CMakeFiles/mocap-test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ralek/mocap-server/src /Users/ralek/mocap-server/src/mocap-test /Users/ralek/mocap-server/Unix /Users/ralek/mocap-server/Unix/mocap-test /Users/ralek/mocap-server/Unix/mocap-test/CMakeFiles/mocap-test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : mocap-test/CMakeFiles/mocap-test.dir/depend
 

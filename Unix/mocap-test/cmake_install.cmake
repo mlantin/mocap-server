@@ -1,4 +1,4 @@
-# Install script for directory: /Users/ralek/ecuad/mocap-server/src/mocap-test
+# Install script for directory: /Users/ralek/mocap-server/src/mocap-test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

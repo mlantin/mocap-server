@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/Users/ralek/ecuad/mocap-server/bin/libVRCom.a"
+  "/Users/ralek/mocap-server/bin/libVRCom.a"
 )

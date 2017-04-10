@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc" "/Users/ralek/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
+  "/Users/ralek/mocap-server/src/protobuf/VRCom.pb.cc" "/Users/ralek/mocap-server/unix/protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/unix
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles /Users/ralek/mocap-server/Unix/smallUDPClient/CMakeFiles/progress.marks
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles 0
+	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles /Users/ralek/mocap-server/unix/smallUDPClient/CMakeFiles/progress.marks
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/clean
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/preinstall
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/preinstall
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 smallUDPClient/CMakeFiles/smallUDPClient.dir/rule:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/CMakeFiles/smallUDPClient.dir/rule
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 smallUDPClient/CMakeFiles/smallUDPClient.dir/rule
 .PHONY : smallUDPClient/CMakeFiles/smallUDPClient.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ smallUDPClient: smallUDPClient/CMakeFiles/smallUDPClient.dir/rule
 
 # fast build rule for target.
 smallUDPClient/fast:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/build
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/build
 .PHONY : smallUDPClient/fast
 
 smallUDPClient.o: smallUDPClient.cpp.o
@@ -131,7 +131,7 @@ smallUDPClient.o: smallUDPClient.cpp.o
 
 # target to build an object file
 smallUDPClient.cpp.o:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.o
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.o
 .PHONY : smallUDPClient.cpp.o
 
 smallUDPClient.i: smallUDPClient.cpp.i
@@ -140,7 +140,7 @@ smallUDPClient.i: smallUDPClient.cpp.i
 
 # target to preprocess a source file
 smallUDPClient.cpp.i:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.i
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.i
 .PHONY : smallUDPClient.cpp.i
 
 smallUDPClient.s: smallUDPClient.cpp.s
@@ -149,7 +149,7 @@ smallUDPClient.s: smallUDPClient.cpp.s
 
 # target to generate assembly for a file
 smallUDPClient.cpp.s:
-	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.s
+	cd /Users/ralek/mocap-server/unix && $(MAKE) -f smallUDPClient/CMakeFiles/smallUDPClient.dir/build.make smallUDPClient/CMakeFiles/smallUDPClient.dir/smallUDPClient.cpp.s
 .PHONY : smallUDPClient.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

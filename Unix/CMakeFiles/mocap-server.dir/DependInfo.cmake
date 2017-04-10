@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/ralek/mocap-server/src/mocap-server.cpp" "/Users/ralek/mocap-server/Unix/CMakeFiles/mocap-server.dir/mocap-server.cpp.o"
+  "/Users/ralek/mocap-server/src/mocap-server.cpp" "/Users/ralek/mocap-server/unix/CMakeFiles/mocap-server.dir/mocap-server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
@@ -23,10 +23,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/ralek/mocap-server/Unix/flatbuf/CMakeFiles/flatbuf.dir/DependInfo.cmake"
-  "/Users/ralek/mocap-server/Unix/smallUDPClient/CMakeFiles/smallUDPClient.dir/DependInfo.cmake"
-  "/Users/ralek/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake"
-  "/Users/ralek/mocap-server/Unix/protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake"
+  "/Users/ralek/mocap-server/unix/flatbuf/CMakeFiles/flatbuf.dir/DependInfo.cmake"
+  "/Users/ralek/mocap-server/unix/smallUDPClient/CMakeFiles/smallUDPClient.dir/DependInfo.cmake"
+  "/Users/ralek/mocap-server/unix/easywsclient/CMakeFiles/easywsclient.dir/DependInfo.cmake"
+  "/Users/ralek/mocap-server/unix/protobuf/CMakeFiles/VRCom.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

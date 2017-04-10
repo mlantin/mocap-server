@@ -14,6 +14,7 @@ using namespace Holojam::Protocol;
 
 int main(int argc, char* argv[]) {
 
+	// UDP CLIENT REPLACES WebSocket easywsclient SETUP
   std::string host = "127.0.0.1";
   std::string port = "9592";
 
@@ -39,19 +40,21 @@ int main(int argc, char* argv[]) {
       auto scop = builder.CreateString("IAA");
       auto orig = builder.CreateString("mocap-test");
 
+      float xa = sin(angle)*3000*1.0f;
+      float ya = cos(angle)*3000*1.0f;
+
       // Create the Vector3 and Vector4 structs.
-      auto v3 = Vector3(sin(angle)*3000, cos(angle)*3000, 0);
+      auto v3 = Vector3(xa, ya, 0.0f);
       auto v4 = Vector4(0.9961946980917455, 0.08715574274765817, 0, 0);
 
       // Build the vector of Vector3 structs:
-      flatbuffers::Offset<flatbuffers::Vector<const Vector3 *>> vec3s_vector;
       std::vector<Vector3> array3;
       array3.reserve(1);
       array3.push_back(v3);
       auto vec3s = builder.CreateVectorOfStructs(array3);
 
+
       // // Build the vector of Vector4 structs:
-      flatbuffers::Offset<flatbuffers::Vector<const Vector4 *>> vec4s_vector;
       std::vector<Vector4> array4;
       array4.reserve(1);
       array4.push_back(v4);
@@ -60,8 +63,8 @@ int main(int argc, char* argv[]) {
       // Build a flake:
       FlakeBuilder flake_builder(builder);
       flake_builder.add_label(flakeLabel);
-      flake_builder.add_vector3s(vec3s_vector);
-      flake_builder.add_vector4s(vec4s_vector);
+      flake_builder.add_vector3s(vec3s);
+      flake_builder.add_vector4s(vec4s);
       auto flak = flake_builder.Finish();
 
       // Build the vector of flakes:
@@ -83,7 +86,11 @@ int main(int argc, char* argv[]) {
 
       // Get nugget data tht was made above:
       auto ngt = GetNugget(buf);
-      auto le = ngt->flakes()->Length();
+      auto v3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
+      auto v3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
+      auto v3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
+
+      printf("%f, %f, %f\n",v3x,v3y,v3z);
 
       // UDP Client
       // client.sendBinaryString(to_string(le));

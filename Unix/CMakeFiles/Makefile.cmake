@@ -7,15 +7,15 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "CMakeFiles/3.7.2/CMakeCCompiler.cmake"
+  "CMakeFiles/3.7.2/CMakeCXXCompiler.cmake"
+  "CMakeFiles/3.7.2/CMakeSystem.cmake"
   "/Users/ralek/mocap-server/src/CMakeLists.txt"
   "/Users/ralek/mocap-server/src/easywsclient/CMakeLists.txt"
   "/Users/ralek/mocap-server/src/flatbuf/CMakeLists.txt"
   "/Users/ralek/mocap-server/src/mocap-test/CMakeLists.txt"
   "/Users/ralek/mocap-server/src/protobuf/CMakeLists.txt"
   "/Users/ralek/mocap-server/src/smallUDPClient/CMakeLists.txt"
-  "CMakeFiles/3.7.2/CMakeCCompiler.cmake"
-  "CMakeFiles/3.7.2/CMakeCXXCompiler.cmake"
-  "CMakeFiles/3.7.2/CMakeSystem.cmake"
   "/usr/local/Cellar/cmake/3.7.2/share/cmake/Modules/CMakeCInformation.cmake"
   "/usr/local/Cellar/cmake/3.7.2/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/usr/local/Cellar/cmake/3.7.2/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"

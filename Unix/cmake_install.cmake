@@ -29,11 +29,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/ralek/mocap-server/unix/easywsclient/cmake_install.cmake")
-  include("/Users/ralek/mocap-server/unix/smallUDPClient/cmake_install.cmake")
-  include("/Users/ralek/mocap-server/unix/protobuf/cmake_install.cmake")
-  include("/Users/ralek/mocap-server/unix/flatbuf/cmake_install.cmake")
-  include("/Users/ralek/mocap-server/unix/mocap-test/cmake_install.cmake")
+  include("/Users/ralek/mocap-server/Unix/easywsclient/cmake_install.cmake")
+  include("/Users/ralek/mocap-server/Unix/smallUDPClient/cmake_install.cmake")
+  include("/Users/ralek/mocap-server/Unix/protobuf/cmake_install.cmake")
+  include("/Users/ralek/mocap-server/Unix/flatbuf/cmake_install.cmake")
+  include("/Users/ralek/mocap-server/Unix/mocap-test/cmake_install.cmake")
 
 endif()
 
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/ralek/mocap-server/unix/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/ralek/mocap-server/Unix/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

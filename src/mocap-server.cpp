@@ -2,6 +2,8 @@
 #include "easywsclient.hpp"
 #include "smallUDPClient.hpp"
 #include "holojam_generated.h"
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
 #include "VRCom.pb.h"
 #include <iostream>
 #include <fstream>
@@ -15,6 +17,7 @@
 #include <math.h>
 
 using namespace ViconDataStreamSDK::CPP;
+using namespace Holojam::Protocol;
 
 #define output_stream if(!LogFile.empty()) ; else std::cout
 
@@ -157,7 +160,9 @@ int main( int argc, char* argv[] )
 
   std::string HostName = "localhost:801";
   std::string WebsocketAddr = "ws://localhost:4567";
+
   int a = 1;
+
   if( argc > 1 )
   {
     HostName = argv[1];
@@ -242,14 +247,25 @@ int main( int argc, char* argv[] )
     // Connect to vr websocket server
     // MIRKOS's TODO: TO BE REPLACED WITH UDP CLIENT CONNECTING TO HOLOJAM-NODE
 
-    using easywsclient::WebSocket;
-    WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
-    assert(ws);
+    // using easywsclient::WebSocket;
+    // WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
+    // assert(ws);
 
-    VRCom::Update* msg = new VRCom::Update();
-    VRCom::Mocap* mocap = new VRCom::Mocap();
-    msg->set_allocated_mocap(mocap);
-    auto& subjects = *mocap->mutable_subjects();
+    // UDP CLIENT REPLACES WebSocket easywsclient SETUP
+    std::string host = "127.0.0.1";
+    std::string port = "9592";
+
+    // Create IO service
+    boost::asio::io_service clientIoService;
+    // Create UDP client
+    smallUDPClient client(clientIoService, host, port);
+
+
+    // To be replaced with the flatbuffer stuff
+    // VRCom::Update* msg = new VRCom::Update();
+    // VRCom::Mocap* mocap = new VRCom::Mocap();
+    // msg->set_allocated_mocap(mocap);
+    // auto& subjects = *mocap->mutable_subjects();
 
     int numSubjects = 0;
 
@@ -381,13 +397,15 @@ int main( int argc, char* argv[] )
       // }
 
       //output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
-      for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount ; ++SubjectIndex )
+      for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount; ++SubjectIndex )
       {
         //output_stream << "  Subject #" << SubjectIndex << std::endl;
 
         // Get the subject name
         std::string SubjectName = MyClient.GetSubjectName( SubjectIndex ).SubjectName;
         // output_stream << "    Name: " << SubjectName << std::endl;
+
+        std::cout << SubjectName << '\n';
 
         // Get the root segment
         std::string RootSegment = MyClient.GetSubjectRootSegmentName( SubjectName ).SegmentName;
@@ -442,21 +460,87 @@ int main( int argc, char* argv[] )
           //                                                      << _Output_Euler.Rotation[ 1 ]     << ", "
           //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
 
+          if (SubjectName == "GVR2"){
 
-          VRCom::MocapSubject& currentSubj = subjects[SubjectName];
-          VRCom::Position* pos = currentSubj.mutable_pos();
-          VRCom::Rotation* rot = currentSubj.mutable_rot();
+            auto v3x = _Output_GetSegmentLocalTranslation.Translation[ 0 ];
+            auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ];
+            auto v3z = _Output_GetSegmentLocalTranslation.Translation[ 2 ];
 
-          pos->set_x(_Output_GetSegmentLocalTranslation.Translation[ 0 ]);
-          pos->set_y(_Output_GetSegmentLocalTranslation.Translation[ 1 ]);
-          pos->set_z(_Output_GetSegmentLocalTranslation.Translation[ 2 ]);
+            printf("%f, %f, %f\n", v3x, v3y, v3z );
 
-          rot->set_x(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ]);
-          rot->set_y(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ]);
-          rot->set_z(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ]);
-          rot->set_w(_Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ]);
+            auto v4x = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ];
+            auto v4y = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ];
+            auto v4z = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ];
+            auto v4w = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ];
+
+            // Create and init a FlatBufferBuilder
+            flatbuffers::FlatBufferBuilder builder(1024);
+
+            // Create Nugget fields and flake's label field:
+            auto flakeLabel = builder.CreateString("vec3");
+            auto scop = builder.CreateString("IAA");
+            auto orig = builder.CreateString("ECUAD-MOCAP");
+
+            // Create the Vector3 and Vector4 structs.
+            auto v3 = Vector3(v3x, v3y, v3z);
+            auto v4 = Vector4(v4x, v4y, v4z, v4w);
+
+            // Build the vector of Vector3 structs:
+            std::vector<Vector3> array3;
+            array3.reserve(1);
+            array3.push_back(v3);
+            auto vec3s = builder.CreateVectorOfStructs(array3);
+
+
+            // // Build the vector of Vector4 structs:
+            std::vector<Vector4> array4;
+            array4.reserve(1);
+            array4.push_back(v4);
+            auto vec4s = builder.CreateVectorOfStructs(array4);
+
+            // Build a flake:
+            FlakeBuilder flake_builder(builder);
+            flake_builder.add_label(flakeLabel);
+            flake_builder.add_vector3s(vec3s);
+            flake_builder.add_vector4s(vec4s);
+            auto flak = flake_builder.Finish();
+
+            // Build the vector of flakes:
+            std::vector<flatbuffers::Offset<Flake>> flake_vector;
+            flake_vector.push_back(flak);
+            auto flaks = builder.CreateVector(flake_vector);
+
+            // Build the nugget and finish the serialization:
+            NuggetBuilder nugget_builder(builder);
+            nugget_builder.add_scope(scop);
+            nugget_builder.add_origin(orig);
+            nugget_builder.add_flakes(flaks);
+            auto nug = nugget_builder.Finish();
+            builder.Finish(nug);
+
+            // Retrieve the Buffer and it's size:
+            uint8_t *buf = builder.GetBufferPointer();
+            int bufsz = builder.GetSize();
+
+            // Get nugget data tht was made above:
+            auto ngt = GetNugget(buf);
+            auto vec3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
+            auto vec3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
+            auto vec3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
+
+            // TODO: REMEMBER TO REMOVE DEBUG LOGGING BELOW WHEN NEEDED:
+            printf("%f, %f, %f\n\n", vec3x, vec3y, vec3z);
+
+            // UDP Client
+            // client.sendBinaryString(to_string(le));
+            client.sendBinaryBuffer(buf, bufsz);
+
+          }
 
       }
+      // The commented out version below is from the prior webosocket version
+      // of the server that uses protobuffers
+      /*
       msg->SerializeToOstream(&bufstr);
 
       ws->sendBinary(bufstr.str());
@@ -464,8 +548,9 @@ int main( int argc, char* argv[] )
 
       std::ostringstream().swap(bufstr);
       bufstr.clear();
+      */
 
-      std::this_thread::sleep_for(std::chrono::milliseconds(15));
+      std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 
 
@@ -482,6 +567,8 @@ int main( int argc, char* argv[] )
     double secs = (double) (dt)/(double)CLOCKS_PER_SEC;
     std::cout << " Disconnect time = " << secs << " secs" << std::endl;
 
-    ws->close();
+    // The commented out version below is from the prior webosocket version
+    // of the server that uses protobuffers
+    // ws->close();
   }
 }

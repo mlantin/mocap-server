@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/Users/ralek/mocap-server/src")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/ralek/mocap-server/unix")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/ralek/mocap-server/Unix")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

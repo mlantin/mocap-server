@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/mocap-server/unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles /Users/ralek/mocap-server/unix/protobuf/CMakeFiles/progress.marks
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles 0
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles /Users/ralek/mocap-server/Unix/protobuf/CMakeFiles/progress.marks
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/clean
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/preinstall
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/preinstall
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 protobuf/CMakeFiles/VRCom.dir/rule:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/CMakeFiles/VRCom.dir/rule
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 protobuf/CMakeFiles/VRCom.dir/rule
 .PHONY : protobuf/CMakeFiles/VRCom.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ VRCom: protobuf/CMakeFiles/VRCom.dir/rule
 
 # fast build rule for target.
 VRCom/fast:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/build
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/build
 .PHONY : VRCom/fast
 
 VRCom.pb.o: VRCom.pb.cc.o
@@ -131,7 +131,7 @@ VRCom.pb.o: VRCom.pb.cc.o
 
 # target to build an object file
 VRCom.pb.cc.o:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.o
 .PHONY : VRCom.pb.cc.o
 
 VRCom.pb.i: VRCom.pb.cc.i
@@ -140,7 +140,7 @@ VRCom.pb.i: VRCom.pb.cc.i
 
 # target to preprocess a source file
 VRCom.pb.cc.i:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.i
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.i
 .PHONY : VRCom.pb.cc.i
 
 VRCom.pb.s: VRCom.pb.cc.s
@@ -149,7 +149,7 @@ VRCom.pb.s: VRCom.pb.cc.s
 
 # target to generate assembly for a file
 VRCom.pb.cc.s:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.s
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f protobuf/CMakeFiles/VRCom.dir/build.make protobuf/CMakeFiles/VRCom.dir/VRCom.pb.cc.s
 .PHONY : VRCom.pb.cc.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

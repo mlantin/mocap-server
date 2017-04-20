@@ -51,7 +51,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /Users/ralek/mocap-server/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ralek/mocap-server/unix
+CMAKE_BINARY_DIR = /Users/ralek/mocap-server/Unix
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles /Users/ralek/mocap-server/unix/easywsclient/CMakeFiles/progress.marks
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/unix/CMakeFiles 0
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles /Users/ralek/mocap-server/Unix/easywsclient/CMakeFiles/progress.marks
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ralek/mocap-server/Unix/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/clean
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 easywsclient/CMakeFiles/easywsclient.dir/rule:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/CMakeFiles/easywsclient.dir/rule
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f CMakeFiles/Makefile2 easywsclient/CMakeFiles/easywsclient.dir/rule
 .PHONY : easywsclient/CMakeFiles/easywsclient.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ easywsclient: easywsclient/CMakeFiles/easywsclient.dir/rule
 
 # fast build rule for target.
 easywsclient/fast:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/build
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/build
 .PHONY : easywsclient/fast
 
 easywsclient.o: easywsclient.cpp.o
@@ -131,7 +131,7 @@ easywsclient.o: easywsclient.cpp.o
 
 # target to build an object file
 easywsclient.cpp.o:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o
 .PHONY : easywsclient.cpp.o
 
 easywsclient.i: easywsclient.cpp.i
@@ -140,7 +140,7 @@ easywsclient.i: easywsclient.cpp.i
 
 # target to preprocess a source file
 easywsclient.cpp.i:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.i
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.i
 .PHONY : easywsclient.cpp.i
 
 easywsclient.s: easywsclient.cpp.s
@@ -149,7 +149,7 @@ easywsclient.s: easywsclient.cpp.s
 
 # target to generate assembly for a file
 easywsclient.cpp.s:
-	cd /Users/ralek/mocap-server/unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.s
+	cd /Users/ralek/mocap-server/Unix && $(MAKE) -f easywsclient/CMakeFiles/easywsclient.dir/build.make easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.s
 .PHONY : easywsclient.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/ralek/mocap-server/unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/ralek/mocap-server/Unix && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

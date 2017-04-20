@@ -29,6 +29,10 @@ smallUDPClient.hpp
 /Users/ralek/mocap-server/src/smallUDPClient.hpp
 holojam_generated.h
 /Users/ralek/mocap-server/src/holojam_generated.h
+boost/array.hpp
+-
+boost/asio.hpp
+-
 VRCom.pb.h
 /Users/ralek/mocap-server/src/VRCom.pb.h
 iostream

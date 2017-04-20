@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp" "/Users/ralek/mocap-server/unix/easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
+  "/Users/ralek/mocap-server/src/easywsclient/easywsclient.cpp" "/Users/ralek/mocap-server/Unix/easywsclient/CMakeFiles/easywsclient.dir/easywsclient.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

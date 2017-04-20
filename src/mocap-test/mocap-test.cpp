@@ -12,93 +12,111 @@
 
 using namespace Holojam::Protocol;
 
-int main(int argc, char* argv[]) {
 
-	// UDP CLIENT REPLACES WebSocket easywsclient SETUP
-  std::string host = "127.0.0.1";
-  std::string port = "9592";
+// These simulates multiple mocap subjects;
+// these will be the strings bound to the "origin"
+std::string FirstPlayerSim = "Player Q";
+std::string SecondPlayerSim = "Player R";
+std::string ThirdPlayerSim = "Player S";
+std::string scope = "IAA";
 
-  // Create IO service
-  boost::asio::io_service clientIoService;
-  // Create UDP client
-  smallUDPClient client(clientIoService, host, port);
+// UDP CLIENT REPLACES WebSocket easywsclient SETUP
+std::string host = "127.0.0.1";
+std::string port = "9592";
 
-  const double PI = 2*acos(0.0);
+// Create IO service
+boost::asio::io_service clientIoService;
+// Create UDP client
+smallUDPClient client(clientIoService, host, port);
+
+const double PI = 2*acos(0.0);
+
+void sendTranslationData(std::string scope, std::string origin) {
+
   float angle;
+
+  for (int i = 0; i < 100; i++) {
+
+    angle = 2*PI/100*i;
+
+    // Create and init a FlatBufferBuilder
+    flatbuffers::FlatBufferBuilder builder(1024);
+
+    // Create Nugget fields and flake's label field:
+    auto flakeLabel = builder.CreateString("vec3");
+    auto scop = builder.CreateString(scope);
+    auto orig = builder.CreateString(origin);
+
+    float xa = sin(angle)*3000*1.0f;
+    float ya = cos(angle)*3000*1.0f;
+
+    // Create the Vector3 and Vector4 structs.
+    auto v3 = Vector3(xa, ya, 0.0f);
+    auto v4 = Vector4(0.9961946980917455, 0.08715574274765817, 0, 0);
+
+    // Build the vector of Vector3 structs:
+    std::vector<Vector3> array3;
+    array3.reserve(1);
+    array3.push_back(v3);
+    auto vec3s = builder.CreateVectorOfStructs(array3);
+
+
+    // // Build the vector of Vector4 structs:
+    std::vector<Vector4> array4;
+    array4.reserve(1);
+    array4.push_back(v4);
+    auto vec4s = builder.CreateVectorOfStructs(array4);
+
+    // Build a flake:
+    FlakeBuilder flake_builder(builder);
+    flake_builder.add_label(flakeLabel);
+    flake_builder.add_vector3s(vec3s);
+    flake_builder.add_vector4s(vec4s);
+    auto flak = flake_builder.Finish();
+
+    // Build the vector of flakes:
+    std::vector<flatbuffers::Offset<Flake>> flake_vector;
+    flake_vector.push_back(flak);
+    auto flaks = builder.CreateVector(flake_vector);
+
+    // Build the nugget and finish the serialization:
+    NuggetBuilder nugget_builder(builder);
+    nugget_builder.add_scope(scop);
+    nugget_builder.add_origin(orig);
+    nugget_builder.add_flakes(flaks);
+    auto nug = nugget_builder.Finish();
+    builder.Finish(nug);
+
+    // Retrieve the Buffer and it's size:
+    uint8_t *buf = builder.GetBufferPointer();
+    int bufsz = builder.GetSize();
+
+    // Get nugget data tht was made above:
+    auto ngt = GetNugget(buf);
+    auto v3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
+    auto v3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
+    auto v3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
+
+    printf("%f, %f, %f\n\n", v3x, v3y, v3z);
+
+    // UDP Client
+    // client.sendBinaryString(to_string(le));
+    client.sendBinaryBuffer(buf, bufsz);
+
+    // Prevents too much (?) data ... :
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+
+    }
+}
+
+int main(int argc, char* argv[]) {
 
   while(true) {
 
-    for (int i = 0; i < 100; i++) {
+    sendTranslationData(scope, FirstPlayerSim);
+    sendTranslationData(scope, SecondPlayerSim);
+    sendTranslationData(scope, ThirdPlayerSim);
 
-      angle = 2*PI/100*i;
-
-      // Create and init a FlatBufferBuilder
-      flatbuffers::FlatBufferBuilder builder(1024);
-
-      // Create Nugget fields and flake's label field:
-      auto flakeLabel = builder.CreateString("vec3");
-      auto scop = builder.CreateString("IAA");
-      auto orig = builder.CreateString("mocap-test");
-
-      float xa = sin(angle)*3000*1.0f;
-      float ya = cos(angle)*3000*1.0f;
-
-      // Create the Vector3 and Vector4 structs.
-      auto v3 = Vector3(xa, ya, 0.0f);
-      auto v4 = Vector4(0.9961946980917455, 0.08715574274765817, 0, 0);
-
-      // Build the vector of Vector3 structs:
-      std::vector<Vector3> array3;
-      array3.reserve(1);
-      array3.push_back(v3);
-      auto vec3s = builder.CreateVectorOfStructs(array3);
-
-
-      // // Build the vector of Vector4 structs:
-      std::vector<Vector4> array4;
-      array4.reserve(1);
-      array4.push_back(v4);
-      auto vec4s = builder.CreateVectorOfStructs(array4);
-
-      // Build a flake:
-      FlakeBuilder flake_builder(builder);
-      flake_builder.add_label(flakeLabel);
-      flake_builder.add_vector3s(vec3s);
-      flake_builder.add_vector4s(vec4s);
-      auto flak = flake_builder.Finish();
-
-      // Build the vector of flakes:
-      std::vector<flatbuffers::Offset<Flake>> flake_vector;
-      flake_vector.push_back(flak);
-      auto flaks = builder.CreateVector(flake_vector);
-
-      // Build the nugget and finish the serialization:
-      NuggetBuilder nugget_builder(builder);
-      nugget_builder.add_scope(scop);
-      nugget_builder.add_origin(orig);
-      nugget_builder.add_flakes(flaks);
-      auto nug = nugget_builder.Finish();
-      builder.Finish(nug);
-
-      // Retrieve the Buffer and it's size:
-      uint8_t *buf = builder.GetBufferPointer();
-      int bufsz = builder.GetSize();
-
-      // Get nugget data tht was made above:
-      auto ngt = GetNugget(buf);
-      auto v3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
-      auto v3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
-      auto v3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
-
-      printf("%f, %f, %f\n",v3x,v3y,v3z);
-
-      // UDP Client
-      // client.sendBinaryString(to_string(le));
-      client.sendBinaryBuffer(buf, bufsz);
-
-      // Prevents too much (?) data ... :
-      std::this_thread::sleep_for(std::chrono::milliseconds(20));
-
-    	}
-    }
+  }
+  return 0;
 }

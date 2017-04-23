@@ -244,14 +244,7 @@ int main( int argc, char* argv[] )
   #endif
     }
 
-    // Connect to vr websocket server
-    // MIRKOS's TODO: TO BE REPLACED WITH UDP CLIENT CONNECTING TO HOLOJAM-NODE
-
-    // using easywsclient::WebSocket;
-    // WebSocket::pointer ws = WebSocket::from_url(WebsocketAddr);
-    // assert(ws);
-
-    // UDP CLIENT REPLACES WebSocket easywsclient SETUP
+    std::string playerOne = "PlayerOne";
     std::string host = "127.0.0.1";
     std::string port = "9592";
 
@@ -260,18 +253,9 @@ int main( int argc, char* argv[] )
     // Create UDP client
     smallUDPClient client(clientIoService, host, port);
 
-
-    // To be replaced with the flatbuffer stuff
-    // VRCom::Update* msg = new VRCom::Update();
-    // VRCom::Mocap* mocap = new VRCom::Mocap();
-    // msg->set_allocated_mocap(mocap);
-    // auto& subjects = *mocap->mutable_subjects();
-
     int numSubjects = 0;
 
     std::ostringstream bufstr;
-
-    std::cout << std::endl;
 
     // Enable some different data types
     MyClient.EnableSegmentData();
@@ -285,7 +269,6 @@ int main( int argc, char* argv[] )
     //MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPull );
     // MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ClientPullPreFetch );
     MyClient.SetStreamMode( ViconDataStreamSDK::CPP::StreamMode::ServerPush );
-
 
     //Set the coordinate system to the OpenGL system (X right, Y UP, Z Backward
     //Note: There is something off with the way Blade outputs data. Somehow it needs to start with
@@ -466,8 +449,6 @@ int main( int argc, char* argv[] )
             auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ];
             auto v3z = _Output_GetSegmentLocalTranslation.Translation[ 2 ];
 
-            printf("%f, %f, %f\n", v3x, v3y, v3z );
-
             auto v4x = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ];
             auto v4y = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ];
             auto v4z = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ];
@@ -479,7 +460,7 @@ int main( int argc, char* argv[] )
             // Create Nugget fields and flake's label field:
             auto flakeLabel = builder.CreateString("vec3");
             auto scop = builder.CreateString("IAA");
-            auto orig = builder.CreateString("ECUAD-MOCAP");
+            auto orig = builder.CreateString(playerOne);
 
             // Create the Vector3 and Vector4 structs.
             auto v3 = Vector3(v3x, v3y, v3z);
@@ -490,7 +471,6 @@ int main( int argc, char* argv[] )
             array3.reserve(1);
             array3.push_back(v3);
             auto vec3s = builder.CreateVectorOfStructs(array3);
-
 
             // // Build the vector of Vector4 structs:
             std::vector<Vector4> array4;
@@ -535,24 +515,13 @@ int main( int argc, char* argv[] )
             // client.sendBinaryString(to_string(le));
             client.sendBinaryBuffer(buf, bufsz);
 
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
           }
 
       }
-      // The commented out version below is from the prior webosocket version
-      // of the server that uses protobuffers
-      /*
-      msg->SerializeToOstream(&bufstr);
 
-      ws->sendBinary(bufstr.str());
-      ws->poll();
-
-      std::ostringstream().swap(bufstr);
-      bufstr.clear();
-      */
-
-      std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
-
 
     MyClient.DisableSegmentData();
     MyClient.DisableMarkerData();

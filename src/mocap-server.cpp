@@ -244,7 +244,8 @@ int main( int argc, char* argv[] )
   #endif
     }
 
-    std::string playerOne = "PlayerOne";
+    std::string playerOne = "Player";
+    std::string playerTwo = "playerTwo";
     std::string host = "127.0.0.1";
     std::string port = "9592";
 
@@ -443,7 +444,7 @@ int main( int argc, char* argv[] )
           //                                                      << _Output_Euler.Rotation[ 1 ]     << ", "
           //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
 
-          if (SubjectName == "GVR2"){
+          if ((SubjectName != "Wii") ){
 
             auto v3x = _Output_GetSegmentLocalTranslation.Translation[ 0 ];
             auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ];
@@ -460,7 +461,12 @@ int main( int argc, char* argv[] )
             // Create Nugget fields and flake's label field:
             auto flakeLabel = builder.CreateString("vec3");
             auto scop = builder.CreateString("IAA");
-            auto orig = builder.CreateString(playerOne);
+
+            auto orig = builder.CreateString(SubjectName);
+
+            // if(SubjectName == "PIXEL1"){
+            //   orig = builder.CreateString(playerTwo);
+            // }
 
             // Create the Vector3 and Vector4 structs.
             auto v3 = Vector3(v3x, v3y, v3z);
@@ -515,7 +521,7 @@ int main( int argc, char* argv[] )
             // client.sendBinaryString(to_string(le));
             client.sendBinaryBuffer(buf, bufsz);
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
           }
 

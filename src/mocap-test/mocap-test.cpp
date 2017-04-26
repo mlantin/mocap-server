@@ -15,9 +15,9 @@ using namespace Holojam::Protocol;
 
 // These simulates multiple mocap subjects;
 // these will be the strings bound to the "origin"
-std::string FirstPlayerSim = "Player Q";
-std::string SecondPlayerSim = "Player R";
-std::string ThirdPlayerSim = "Player S";
+std::string FirstPlayerSim = "PlayerQ";
+std::string SecondPlayerSim = "PlayerR";
+std::string ThirdPlayerSim = "PlayerS";
 std::string scope = "IAA";
 
 // UDP CLIENT REPLACES WebSocket easywsclient SETUP
@@ -104,7 +104,7 @@ void sendTranslationData(std::string scope, std::string origin) {
     client.sendBinaryBuffer(buf, bufsz);
 
     // Prevents too much (?) data ... :
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     }
 }
@@ -114,8 +114,6 @@ int main(int argc, char* argv[]) {
   while(true) {
 
     sendTranslationData(scope, FirstPlayerSim);
-    sendTranslationData(scope, SecondPlayerSim);
-    sendTranslationData(scope, ThirdPlayerSim);
 
   }
   return 0;

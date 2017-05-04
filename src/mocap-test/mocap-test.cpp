@@ -15,13 +15,14 @@ using namespace Holojam::Protocol;
 
 // These simulates multiple mocap subjects;
 // these will be the strings bound to the "origin"
-std::string FirstPlayerSim = "PlayerQ";
+std::string FirstPlayerSim = "PIXEL1";
 std::string SecondPlayerSim = "PlayerR";
 std::string ThirdPlayerSim = "PlayerS";
-std::string scope = "IAA";
+std::string scope = "Vicon-Test";
+std::string origin = "Update";
 
 // UDP CLIENT REPLACES WebSocket easywsclient SETUP
-std::string host = "127.0.0.1";
+std::string host = "0.0.0.0";
 std::string port = "9592";
 
 // Create IO service
@@ -31,11 +32,11 @@ smallUDPClient client(clientIoService, host, port);
 
 const double PI = 2*acos(0.0);
 
-void sendTranslationData(std::string scope, std::string origin) {
+void sendTranslationData(std::string scope, std::string subject) {
 
   float angle;
 
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 1000; i++) {
 
     angle = 2*PI/100*i;
 
@@ -43,15 +44,15 @@ void sendTranslationData(std::string scope, std::string origin) {
     flatbuffers::FlatBufferBuilder builder(1024);
 
     // Create Nugget fields and flake's label field:
-    auto flakeLabel = builder.CreateString("vec3");
+    auto flakeLabel = builder.CreateString(subject);
     auto scop = builder.CreateString(scope);
     auto orig = builder.CreateString(origin);
 
-    float xa = sin(angle)*3000*1.0f;
-    float ya = cos(angle)*3000*1.0f;
+    float xa = sin(angle)*.5*1.0f;
+    float ya = cos(angle)*.5*1.0f;
 
     // Create the Vector3 and Vector4 structs.
-    auto v3 = Vector3(xa, ya, 0.0f);
+    auto v3 = Vector3(xa, ya, 2.0f);
     auto v4 = Vector4(0.9961946980917455, 0.08715574274765817, 0, 0);
 
     // Build the vector of Vector3 structs:
@@ -104,7 +105,7 @@ void sendTranslationData(std::string scope, std::string origin) {
     client.sendBinaryBuffer(buf, bufsz);
 
     // Prevents too much (?) data ... :
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(15));
 
     }
 }

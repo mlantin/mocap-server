@@ -244,8 +244,6 @@ int main( int argc, char* argv[] )
   #endif
     }
 
-    std::string playerOne = "Player";
-    std::string playerTwo = "playerTwo";
     std::string host = "127.0.0.1";
     std::string port = "9592";
 
@@ -379,6 +377,12 @@ int main( int argc, char* argv[] )
       //   allocateSubjects(mocap, SubjectCount);
       //   numSubjects = SubjectCount;
       // }
+      // Create and init a FlatBufferBuilder
+      flatbuffers::FlatBufferBuilder builder(1024);
+      auto scop = builder.CreateString("ECUVicon");
+      auto orig = builder.CreateString("Update");
+      // Build the vector of flakes:
+      std::vector<flatbuffers::Offset<Flake>> flake_vector;
 
       //output_stream << "Subjects (" << SubjectCount << "):" << std::endl;
       for( unsigned int SubjectIndex = 0 ; SubjectIndex < SubjectCount; ++SubjectIndex )
@@ -389,7 +393,7 @@ int main( int argc, char* argv[] )
         std::string SubjectName = MyClient.GetSubjectName( SubjectIndex ).SubjectName;
         // output_stream << "    Name: " << SubjectName << std::endl;
 
-        std::cout << SubjectName << '\n';
+        //std::cout << SubjectName << '\n';
 
         // Get the root segment
         std::string RootSegment = MyClient.GetSubjectRootSegmentName( SubjectName ).SegmentName;
@@ -444,89 +448,75 @@ int main( int argc, char* argv[] )
           //                                                      << _Output_Euler.Rotation[ 1 ]     << ", "
           //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
 
-          if ((SubjectName != "Wii") ){
+          
 
-            auto v3x = _Output_GetSegmentLocalTranslation.Translation[ 0 ];
-            auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ];
-            auto v3z = _Output_GetSegmentLocalTranslation.Translation[ 2 ];
+          auto v3x = _Output_GetSegmentLocalTranslation.Translation[ 0 ]/1000.0;
+          auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ]/1000.0;
+          auto v3z = _Output_GetSegmentLocalTranslation.Translation[ 2 ]/1000.0;
 
-            auto v4x = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ];
-            auto v4y = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ];
-            auto v4z = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ];
-            auto v4w = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ];
+          auto v4x = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 0 ];
+          auto v4y = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 1 ];
+          auto v4z = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 2 ];
+          auto v4w = _Output_GetSegmentLocalRotationQuaternion.Rotation[ 3 ];
 
-            // Create and init a FlatBufferBuilder
-            flatbuffers::FlatBufferBuilder builder(1024);
+  
+          // Create Nugget fields and flake's label field:
+          auto flakeLabel = builder.CreateString(SubjectName);
+ 
+          // Create the Vector3 and Vector4 structs.
+          auto v3 = Vector3(v3x, v3y, v3z);
+          auto v4 = Vector4(v4x, v4y, v4z, v4w);
 
-            // Create Nugget fields and flake's label field:
-            auto flakeLabel = builder.CreateString("vec3");
-            auto scop = builder.CreateString("IAA");
+          // Build the vector of Vector3 structs:
+          std::vector<Vector3> array3;
+          array3.reserve(1);
+          array3.push_back(v3);
+          auto vec3s = builder.CreateVectorOfStructs(array3);
 
-            auto orig = builder.CreateString(SubjectName);
+          // // Build the vector of Vector4 structs:
+          std::vector<Vector4> array4;
+          array4.reserve(1);
+          array4.push_back(v4);
+          auto vec4s = builder.CreateVectorOfStructs(array4);
 
-            // if(SubjectName == "PIXEL1"){
-            //   orig = builder.CreateString(playerTwo);
-            // }
+          // Build a flake:
+          FlakeBuilder flake_builder(builder);
+          flake_builder.add_label(flakeLabel);
+          flake_builder.add_vector3s(vec3s);
+          flake_builder.add_vector4s(vec4s);
+          auto flak = flake_builder.Finish();
 
-            // Create the Vector3 and Vector4 structs.
-            auto v3 = Vector3(v3x, v3y, v3z);
-            auto v4 = Vector4(v4x, v4y, v4z, v4w);
+ 
+          flake_vector.push_back(flak);
+          
+          // Get nugget data tht was made above:
+          // auto ngt = GetNugget(buf);
+          // auto vec3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
+          // auto vec3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
+          // auto vec3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
 
-            // Build the vector of Vector3 structs:
-            std::vector<Vector3> array3;
-            array3.reserve(1);
-            array3.push_back(v3);
-            auto vec3s = builder.CreateVectorOfStructs(array3);
+          // // TODO: REMEMBER TO REMOVE DEBUG LOGGING BELOW WHEN NEEDED:
+          // printf("%f, %f, %f\n\n", vec3x, vec3y, vec3z);
 
-            // // Build the vector of Vector4 structs:
-            std::vector<Vector4> array4;
-            array4.reserve(1);
-            array4.push_back(v4);
-            auto vec4s = builder.CreateVectorOfStructs(array4);
-
-            // Build a flake:
-            FlakeBuilder flake_builder(builder);
-            flake_builder.add_label(flakeLabel);
-            flake_builder.add_vector3s(vec3s);
-            flake_builder.add_vector4s(vec4s);
-            auto flak = flake_builder.Finish();
-
-            // Build the vector of flakes:
-            std::vector<flatbuffers::Offset<Flake>> flake_vector;
-            flake_vector.push_back(flak);
-            auto flaks = builder.CreateVector(flake_vector);
-
-            // Build the nugget and finish the serialization:
-            NuggetBuilder nugget_builder(builder);
-            nugget_builder.add_scope(scop);
-            nugget_builder.add_origin(orig);
-            nugget_builder.add_flakes(flaks);
-            auto nug = nugget_builder.Finish();
-            builder.Finish(nug);
-
-            // Retrieve the Buffer and it's size:
-            uint8_t *buf = builder.GetBufferPointer();
-            int bufsz = builder.GetSize();
-
-            // Get nugget data tht was made above:
-            auto ngt = GetNugget(buf);
-            auto vec3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
-            auto vec3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
-            auto vec3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
-
-            // TODO: REMEMBER TO REMOVE DEBUG LOGGING BELOW WHEN NEEDED:
-            printf("%f, %f, %f\n\n", vec3x, vec3y, vec3z);
-
-            // UDP Client
-            // client.sendBinaryString(to_string(le));
-            client.sendBinaryBuffer(buf, bufsz);
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(5));
-
-          }
+          // UDP Client
+          // client.sendBinaryString(to_string(le));
+          
 
       }
+      auto flaks = builder.CreateVector(flake_vector);
+      NuggetBuilder nugget_builder(builder);
+      nugget_builder.add_scope(scop);
+      nugget_builder.add_origin(orig);
+      nugget_builder.add_flakes(flaks);
+      auto nug = nugget_builder.Finish();
+      builder.Finish(nug);
 
+      // Retrieve the Buffer and it's size:
+      uint8_t *buf = builder.GetBufferPointer();
+      int bufsz = builder.GetSize();
+      client.sendBinaryBuffer(buf, bufsz);
+
+      //std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
     MyClient.DisableSegmentData();

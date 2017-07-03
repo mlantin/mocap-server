@@ -4,3 +4,5 @@
 **/*.cmake
 **/CMakeCache.*
 src/**/Makefile
+/Unix/
+.DS_Store

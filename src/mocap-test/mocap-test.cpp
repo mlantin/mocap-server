@@ -52,7 +52,7 @@ void sendTranslationData(std::string scope, std::string subject) {
     float ya = cos(angle)*.5*1.0f;
 
     // Create the Vector3 and Vector4 structs.
-    auto v3 = Vector3(xa, ya, 2.0f);
+    auto v3 = Vector3(xa, ya, -2.0f);
     auto v4 = Vector4(0.9961946980917455, 0.08715574274765817, 0, 0);
 
     // Build the vector of Vector3 structs:
@@ -105,7 +105,7 @@ void sendTranslationData(std::string scope, std::string subject) {
     client.sendBinaryBuffer(buf, bufsz);
 
     // Prevents too much (?) data ... :
-    std::this_thread::sleep_for(std::chrono::milliseconds(15));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
     }
 }

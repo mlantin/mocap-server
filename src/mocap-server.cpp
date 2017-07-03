@@ -449,7 +449,6 @@ int main( int argc, char* argv[] )
           //                                                      << _Output_Euler.Rotation[ 2 ]     << ") " << std::endl;
 
           
-
           auto v3x = _Output_GetSegmentLocalTranslation.Translation[ 0 ]/1000.0;
           auto v3y = _Output_GetSegmentLocalTranslation.Translation[ 1 ]/1000.0;
           auto v3z = _Output_GetSegmentLocalTranslation.Translation[ 2 ]/1000.0;

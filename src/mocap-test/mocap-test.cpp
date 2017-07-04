@@ -1,7 +1,5 @@
 #include "holojam_generated.h"
-#include "smallUDPClient.hpp"
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
+#include "HoloMQTT.h"
 #include <math.h>
 #include <chrono>
 #include <thread>
@@ -21,22 +19,17 @@ std::string ThirdPlayerSim = "PlayerS";
 std::string scope = "Vicon-Test";
 std::string origin = "Update";
 
-// UDP CLIENT REPLACES WebSocket easywsclient SETUP
-std::string host = "0.0.0.0";
-std::string port = "9592";
-
-// Create IO service
-boost::asio::io_service clientIoService;
-// Create UDP client
-smallUDPClient client(clientIoService, host, port);
+// MQTT CLIENT REPLACES SmallUDPClient SETUP
+std::string host = "localhost";
+int port = 1883;
 
 const double PI = 2*acos(0.0);
 
-void sendTranslationData(std::string scope, std::string subject) {
+void sendTranslationData(HoloMQTT* sender, std::string scope, std::string subject) {
 
   float angle;
 
-  for (int i = 0; i < 1000; i++) {
+  for (int i = 0; i < 100; i++) {
 
     angle = 2*PI/100*i;
 
@@ -98,23 +91,25 @@ void sendTranslationData(std::string scope, std::string subject) {
     auto v3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
     auto v3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
 
-    printf("%f, %f, %f\n\n", v3x, v3y, v3z);
+    //printf("%f, %f, %f\n\n", v3x, v3y, v3z);
 
     // UDP Client
     // client.sendBinaryString(to_string(le));
-    client.sendBinaryBuffer(buf, bufsz);
-
+    //client.sendBinaryBuffer(buf, bufsz);
+    sender->send(buf,bufsz);
     // Prevents too much (?) data ... :
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(15));
 
     }
 }
 
 int main(int argc, char* argv[]) {
 
+  HoloMQTT* holomqtt = new HoloMQTT("holomqtt",host.c_str(),port);
+
   while(true) {
 
-    sendTranslationData(scope, FirstPlayerSim);
+    sendTranslationData(holomqtt, scope, FirstPlayerSim);
 
   }
   return 0;

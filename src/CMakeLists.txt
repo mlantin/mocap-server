@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.4)
 project(mocap-server)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
+find_package(Mosquitto REQUIRED)
+include_directories(${MOSQUITTO_INCLUDE_DIRS})
+message(STATUS "libmosquitto: ${MOSQUITTO_INCLUDE_DIRS} ${MOSQUITTO_LIBRARIES}")
+
+
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/../bin)
 set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
@@ -28,10 +35,12 @@ set_property(TARGET boost_system_mt_lib PROPERTY IMPORTED_LOCATION /opt/local/li
 
 add_subdirectory(easywsclient)
 add_subdirectory(smallUDPClient)
+add_subdirectory(HoloMQTT)
 add_subdirectory(protobuf)
 add_subdirectory(flatbuf)
 add_subdirectory(mocap-test)
 
 add_executable(mocap-server mocap-server.cpp)
-target_link_libraries(mocap-server vicon flatbuf smallUDPClient easywsclient protobuf_lib flatbuf_lib boost_system_mt_lib VRCom)
+target_link_libraries(mocap-server ${MOSQUITTO_LIBRARIES} ${LDFLAGS_EX} -rdynamic)
+target_link_libraries(mocap-server vicon flatbuf HoloMQTT flatbuf_lib boost_system_mt_lib VRCom)
 target_compile_features(mocap-server PUBLIC cxx_range_for)

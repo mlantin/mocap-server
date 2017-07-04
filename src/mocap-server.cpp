@@ -1,10 +1,6 @@
 #include "Vicon/Client.h"
-#include "easywsclient.hpp"
-#include "smallUDPClient.hpp"
+#include "HoloMQTT.h"
 #include "holojam_generated.h"
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
-#include "VRCom.pb.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -159,7 +155,8 @@ int main( int argc, char* argv[] )
   AxisOrientation axes = ZUP;
 
   std::string HostName = "localhost:801";
-  std::string WebsocketAddr = "ws://localhost:4567";
+  std::string MQTTAddr = "localhost";
+  int MQTTPort = 1883;
 
   int a = 1;
 
@@ -169,7 +166,7 @@ int main( int argc, char* argv[] )
     a = 2;
   }
   if (argc > 2) {
-    WebsocketAddr = argv[2];
+    MQTTAddr = argv[2];
     a = 3;
   }
 
@@ -180,7 +177,7 @@ int main( int argc, char* argv[] )
     std::string arg = argv[a];
     if(arg == "--help")
     {
-      std::cout << argv[0] << " <HostName> <websocket addr>: allowed options include:\n  --log_file <LogFile> --orient <ZUP | YUP> --help" << std::endl;
+      std::cout << argv[0] << " <HostName> <MQTT broker address>: allowed options include:\n  --log_file <LogFile> --orient <ZUP | YUP> --help" << std::endl;
       return 0;
     }
     else if (arg=="--log_file")
@@ -244,13 +241,10 @@ int main( int argc, char* argv[] )
   #endif
     }
 
-    std::string host = "127.0.0.1";
-    std::string port = "9592";
 
-    // Create IO service
-    boost::asio::io_service clientIoService;
-    // Create UDP client
-    smallUDPClient client(clientIoService, host, port);
+    HoloMQTT* holomqtt = 0;
+    holomqtt = new HoloMQTT("holomqtt",MQTTAddr.c_str(),MQTTPort);
+    while (!holomqtt->isConnected());
 
     int numSubjects = 0;
 
@@ -291,12 +285,6 @@ int main( int argc, char* argv[] )
                              << _Output_GetVersion.Point << std::endl;
 
 
-    // get the number of subjects and allocate the map.
-    // We are assuming that the number and set of subjects won't change.
-    // This may not be a great assumption. The alternative is to reallocate
-    // at each frame or check if there are differences at each frame.
-
-
     size_t FrameRateWindow = 1000; // frames
     size_t Counter = 0;
     clock_t LastTime = clock();
@@ -307,8 +295,9 @@ int main( int argc, char* argv[] )
     while( true)
   #endif
     {
+      std::cerr <<"here";
       // Get a frame
-      //output_stream << "Waiting for new frame...";
+      output_stream << "Waiting for new frame...";
       while( MyClient.GetFrame().Result != Result::Success )
       {
         // Sleep a little so that we don't lumber the CPU with a busy poll
@@ -317,10 +306,10 @@ int main( int argc, char* argv[] )
         #else
           std::this_thread::sleep_for(std::chrono::milliseconds(200));;
         #endif
-
+        std::cerr << "waiting";
         //output_stream << ".";
       }
-      //output_stream << std::endl;
+      output_stream << std::endl;
       if(++Counter == FrameRateWindow)
       {
         clock_t Now = clock();
@@ -341,7 +330,7 @@ int main( int argc, char* argv[] )
 
       // Get the frame number
       Output_GetFrameNumber _Output_GetFrameNumber = MyClient.GetFrameNumber();
-      //output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
+      output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
 
       Output_GetFrameRate Rate = MyClient.GetFrameRate();
       //std::cout << "Frame rate: "           << Rate.FrameRateHz          << std::endl;
@@ -513,7 +502,9 @@ int main( int argc, char* argv[] )
       // Retrieve the Buffer and it's size:
       uint8_t *buf = builder.GetBufferPointer();
       int bufsz = builder.GetSize();
-      client.sendBinaryBuffer(buf, bufsz);
+
+      std::cout << "Sending";
+      holomqtt->send(buf,bufsz);
 
       //std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }

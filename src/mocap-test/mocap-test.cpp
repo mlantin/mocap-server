@@ -96,7 +96,7 @@ void sendTranslationData(HoloMQTT* sender, std::string scope, std::string subjec
     // UDP Client
     // client.sendBinaryString(to_string(le));
     //client.sendBinaryBuffer(buf, bufsz);
-    sender->send(buf,bufsz);
+    sender->send(buf,bufsz,"Update/PIXEL1");
     // Prevents too much (?) data ... :
     std::this_thread::sleep_for(std::chrono::milliseconds(15));
 
@@ -106,6 +106,7 @@ void sendTranslationData(HoloMQTT* sender, std::string scope, std::string subjec
 int main(int argc, char* argv[]) {
 
   HoloMQTT* holomqtt = new HoloMQTT("holomqtt",host.c_str(),port);
+
 
   while(true) {
 

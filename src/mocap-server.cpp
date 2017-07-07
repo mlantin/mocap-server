@@ -295,9 +295,8 @@ int main( int argc, char* argv[] )
     while( true)
   #endif
     {
-      std::cerr <<"here";
       // Get a frame
-      output_stream << "Waiting for new frame...";
+      //output_stream << "Waiting for new frame...";
       while( MyClient.GetFrame().Result != Result::Success )
       {
         // Sleep a little so that we don't lumber the CPU with a busy poll
@@ -306,10 +305,9 @@ int main( int argc, char* argv[] )
         #else
           std::this_thread::sleep_for(std::chrono::milliseconds(200));;
         #endif
-        std::cerr << "waiting";
         //output_stream << ".";
       }
-      output_stream << std::endl;
+      //output_stream << std::endl;
       if(++Counter == FrameRateWindow)
       {
         clock_t Now = clock();
@@ -330,7 +328,7 @@ int main( int argc, char* argv[] )
 
       // Get the frame number
       Output_GetFrameNumber _Output_GetFrameNumber = MyClient.GetFrameNumber();
-      output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
+      //output_stream << "Frame Number: " << _Output_GetFrameNumber.FrameNumber << std::endl;
 
       Output_GetFrameRate Rate = MyClient.GetFrameRate();
       //std::cout << "Frame rate: "           << Rate.FrameRateHz          << std::endl;
@@ -476,36 +474,22 @@ int main( int argc, char* argv[] )
 
  
           flake_vector.push_back(flak);
-          
-          // Get nugget data tht was made above:
-          // auto ngt = GetNugget(buf);
-          // auto vec3x = ngt->flakes()->Get(0)->vector3s()->Get(0)->x();
-          // auto vec3y = ngt->flakes()->Get(0)->vector3s()->Get(0)->y();
-          // auto vec3z = ngt->flakes()->Get(0)->vector3s()->Get(0)->z();
+ 
+          auto flaks = builder.CreateVector(flake_vector);
+          NuggetBuilder nugget_builder(builder);
+          nugget_builder.add_scope(scop);
+          nugget_builder.add_origin(orig);
+          nugget_builder.add_flakes(flaks);
+          auto nug = nugget_builder.Finish();
+          builder.Finish(nug);
 
-          // // TODO: REMEMBER TO REMOVE DEBUG LOGGING BELOW WHEN NEEDED:
-          // printf("%f, %f, %f\n\n", vec3x, vec3y, vec3z);
+          // Retrieve the Buffer and it's size:
+          uint8_t *buf = builder.GetBufferPointer();
+          int bufsz = builder.GetSize();
 
-          // UDP Client
-          // client.sendBinaryString(to_string(le));
-          
-
+          holomqtt->send(buf,bufsz,"Update/"+SubjectName);
       }
-      auto flaks = builder.CreateVector(flake_vector);
-      NuggetBuilder nugget_builder(builder);
-      nugget_builder.add_scope(scop);
-      nugget_builder.add_origin(orig);
-      nugget_builder.add_flakes(flaks);
-      auto nug = nugget_builder.Finish();
-      builder.Finish(nug);
-
-      // Retrieve the Buffer and it's size:
-      uint8_t *buf = builder.GetBufferPointer();
-      int bufsz = builder.GetSize();
-
-      std::cout << "Sending";
-      holomqtt->send(buf,bufsz);
-
+      
       //std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 

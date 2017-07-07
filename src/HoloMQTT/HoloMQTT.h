@@ -12,7 +12,7 @@ class HoloMQTT : public mosqpp::mosquittopp {
     void on_connect(int rc);
     void on_disconnect(int rc);
 
-    void send(uint8_t *buf, int bufsize); 
+    void send(uint8_t *buf, int bufsize, std::string topic); 
 
 	void outputError(int rc);
 };

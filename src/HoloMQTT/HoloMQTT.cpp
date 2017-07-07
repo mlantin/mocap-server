@@ -36,11 +36,11 @@ void HoloMQTT::on_connect(int rc) {
  	}
  }
 
-void HoloMQTT::send(uint8_t *buf, int bufsize) {
+void HoloMQTT::send(uint8_t *buf, int bufsize, std::string topic) {
 	if (!connected)
 		return;
 
-	int rc = publish(NULL, "holojam", bufsize, buf);
+	int rc = publish(NULL, topic.c_str(), bufsize, buf);
 	if ( rc != MOSQ_ERR_SUCCESS ) {
 		printf("PUBLISH Failed: ");
 		outputError(rc);
